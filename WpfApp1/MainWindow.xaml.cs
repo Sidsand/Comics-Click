@@ -23,6 +23,7 @@ namespace WpfApp1
         System.Windows.Threading.DispatcherTimer Timer;
         int i = 85;
         bool st = true;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -30,7 +31,6 @@ namespace WpfApp1
             Timer.Interval = new TimeSpan(0, 0, 0, 0, 1);
             Frame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
         }
-
 
         private void Tick1(object sender, EventArgs e)
         {
@@ -73,6 +73,7 @@ namespace WpfApp1
 
         double kl = 0;
         double aup = 1;
+       double Up=1;
 
         private void Clik_Click(object sender, RoutedEventArgs e)
         {
@@ -80,7 +81,6 @@ namespace WpfApp1
             sh.Content = kl + " кл.";
         }
 
-       double Up=1;
         private void App_Click(object sender, RoutedEventArgs e)
         { 
             if (kl >= Up)
@@ -91,7 +91,6 @@ namespace WpfApp1
                     apps.Text = Up + " кл.";
                     sh.Content = kl + " кл.";
                     och.Content = "Очков за клики: " + aup;
-                
             }
             else
             {
@@ -103,7 +102,6 @@ namespace WpfApp1
         {   Достижения och = new Достижения();
 
             och.sh1.Content = sh.Content;
-            
             if (och.ShowDialog() == true)
             {
             }
@@ -112,11 +110,6 @@ namespace WpfApp1
         private void exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
