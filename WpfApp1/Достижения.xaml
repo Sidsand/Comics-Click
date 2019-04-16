@@ -1,0 +1,24 @@
+﻿<Window x:Class="WpfApp1.Достижения"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="Достижения" Height="450" Width="800">
+    <Grid>
+        <Button Content="Exit" HorizontalAlignment="Left" Margin="684,360,0,0" VerticalAlignment="Top" Width="98" Height="49" FontFamily="Showcard Gothic" FontSize="24" Click="Button_Click"/>
+        <Label x:Name="sh1" Content="0" Margin="10,352,486,0" Height="57" FontFamily="Showcard Gothic" FontSize="36" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+            <Label.Background>
+                <SolidColorBrush Color="White" Opacity="0.75"/>
+            </Label.Background>
+        </Label>
+        <Image x:Name="k100" Margin="14,21,607,307" Source="Twemoji_1f4af.svg.png" Stretch="Fill" Opacity="0"/>
+        <Image x:Name="k500" Margin="281,8,317,307" Source="F500_profile_default_md.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Opacity="0.1"/>
+        <Image x:Name="k666" Margin="261,117,359,195" Source="PT-RD018.png" Stretch="Fill" Opacity="0.1"/>
+        <Image x:Name="k800" Margin="14,117,596,211" Source="26de09fea95d0ccb150afb0a6d1c2a96.png" Stretch="Fill" Opacity="0.1"/>
+        <Image x:Name="k1000" Margin="24,213,573,102" Source="278684753000211.png" Stretch="Fill" Opacity="0.1"/>
+        <Image x:Name="k250" Margin="541,10,132,318" Source="dcfccd0a755308af50f38ffd76b56dda.png" Stretch="Fill" Opacity="0"/>
+
+    </Grid>
+</Window>
