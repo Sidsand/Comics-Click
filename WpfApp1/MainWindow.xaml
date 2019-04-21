@@ -6,69 +6,61 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="Comics Click" Height="720" Width="1280" AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize">
-    <Grid Margin="0,0,2,0" RenderTransformOrigin="0.5,0.5">
+
+    <Grid x:Name="grid"  Background="#FFF10000" Height="720" HorizontalAlignment="Center" VerticalAlignment="Center" Width="1280">
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform Angle="0.001"/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="1280"/>
         </Grid.ColumnDefinitions>
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="Black" Offset="0"/>
-                <GradientStop Color="White" Offset="1"/>
-                <GradientStop Color="#FF7E7E7E" Offset="0.464"/>
-            </LinearGradientBrush>
-        </Grid.Background>
-        <Image Source="1.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5" Margin="278,0,-278,0"/>
-        <Frame x:Name="Frame" Content="Frame" HorizontalAlignment="Left" Height="720" Margin="443,0,0,0" VerticalAlignment="Top" Width="835"/>
-        <Label x:Name="sh" Content="0 кл." Margin="86,10,835,0" Height="85" FontFamily="Showcard Gothic" FontSize="36" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+
+        <StackPanel x:Name="grid1"  HorizontalAlignment="Left" Height="720" Width="1280" Margin="0,0,0,0" VerticalAlignment="Top">
+            <Rectangle x:Name="Fon" Height="720" Width="1280"/>
+        </StackPanel>
+
+        <Border x:Name="ex" BorderBrush="Black" BorderThickness="1"  Width="1280" Height="720" Margin="0,0,0,0" MouseDown="ex_MouseDown" Visibility="Hidden" Cursor="Hand">
+            <Border.Background>
+                <SolidColorBrush Color="Black" Opacity="0.4"/>
+            </Border.Background>
+        </Border>
+
+        <Label x:Name="sh" Content="0 кл." Margin="200,20,0,0" Height="70" FontFamily="Simplified Arabic Fixed" FontSize="24" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="345" FontWeight="Bold">
             <Label.Background>
                 <SolidColorBrush Color="White" Opacity="0.75"/>
             </Label.Background>
         </Label>
 
+        <Label x:Name="och" Content="Очков за клики: 1" HorizontalAlignment="Left" Margin="735,20,0,0" VerticalAlignment="Top" Height="70" Width="345" Background="White" Opacity="0.8" FontSize="24" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Simplified Arabic Fixed" FontWeight="Bold"/>
 
+        <Border x:Name="menu" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="500" Width="900" Margin="190,160,0,0" Visibility="Hidden" Cursor="Arrow">
+            <Border.BorderBrush>
+                <SolidColorBrush Color="Black" Opacity="0.5"/>
+            </Border.BorderBrush>
+            <Border.Background>
+                <SolidColorBrush Color="#FF5F52B0" Opacity="0.6"/>
+            </Border.Background>
+            <Image Margin="0,0,0,0" Source="Меню (макет).png" Stretch="Fill"/>
+        </Border>
 
-
-        <Image Margin="0,634,1192,0" Source="5aae24241f78846f.png" Stretch="Fill"/>
-        <Button x:Name="exit" Content="Button" HorizontalAlignment="Left" Margin="18,650,0,0" VerticalAlignment="Top" Width="50" Height="52" Background="{x:Null}" Foreground="{x:Null}" Click="exit_Click" BorderBrush="{x:Null}"/>
-
-        <StackPanel x:Name="Stack" HorizontalAlignment="Left" Height="620" VerticalAlignment="Top" Width="360" Margin="85,100,0,0">
-            <Label x:Name="och" Content="Очков за клики: 1" HorizontalAlignment="Left" Margin="0,32,-3,0" VerticalAlignment="Top" Height="45" Width="363" Background="White" FontStyle="Italic" FontWeight="Bold" Opacity="0.5" FontSize="24"/>
-            <TextBox x:Name="apps" HorizontalAlignment="Left" Height="45" Margin="10,9,0,0" TextWrapping="Wrap" Text="1 кл." VerticalAlignment="Top" Width="340" Foreground="#FF3AFF55" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Tw Cen MT Condensed Extra Bold" MaxLines="5">
-                <TextBox.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF8006C1" Offset="0"/>
-                        <GradientStop Color="Black" Offset="1"/>
-                    </LinearGradientBrush>
-                </TextBox.Background>
-            </TextBox>
-            <Button x:Name="app" Content="" HorizontalAlignment="Left" Margin="85,9                     ,0,0" VerticalAlignment="Top" Width="117" Height="45" Click="App_Click" IsCancel="True" Foreground="Yellow" FontWeight="Bold" FontSize="18">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0" Opacity="0">
-                        <GradientStop Color="#FF8006C1" Offset="0"/>
-                        <GradientStop Color="#FFFF2828" Offset="1"/>
-                        <GradientStop Color="#FF4A0070" Offset="0.359"/>
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
-            <Button x:Name="dos" Content="Достижения" HorizontalAlignment="Left" Margin="85,9,0,0" VerticalAlignment="Top" Width="176" Height="37" Click="dos_Click"/>
-
-            <StackPanel.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFBDB6FF" Offset="0"/>
-                    <GradientStop Color="Red" Offset="1"/>
-                </LinearGradientBrush>
-            </StackPanel.Background>
-        </StackPanel>
-        <Button x:Name="clik" HorizontalAlignment="Left" Margin="450,0,0,0" VerticalAlignment="Top" Width="828" Height="710" FontFamily="Showcard Gothic" FontSize="72" Click="Clik_Click" Background="{x:Null}">
-        </Button>
-        <Button x:Name="m1" Content="Button" HorizontalAlignment="Left" Margin="6,110,0,0" VerticalAlignment="Top" Width="75" Height="75" Click="m1_Click"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="6,190,0,0" VerticalAlignment="Top" Width="75" Height="75"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="6,270,0,0" VerticalAlignment="Top" Width="75" Height="75"/>
-
-
-
-
-
+        <Border x:Name="exit" BorderThickness="1" HorizontalAlignment="Left" Height="106" Margin="915,171,0,0" VerticalAlignment="Top" Width="165" Visibility="Hidden" Cursor="Hand" MouseDown="Exit_MouseDown">
+            <Border.BorderBrush>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Border.BorderBrush>
+            <Border.Background>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Border.Background>
+        </Border>
+       
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="140" Margin="20,20,0,0" VerticalAlignment="Top" Width="140" Background="Black">
+            <Image Margin="0,0,0,0" Source="Иконка.png" Stretch="Fill" Height="140" Width="140" OpacityMask="Black"/>
+        </Border>
 
     </Grid>
 </Window>

@@ -21,61 +21,72 @@ namespace WpfApp1
     public partial class MainWindow : Window
     {
         System.Windows.Threading.DispatcherTimer Timer;
-        int i = 85;
-        bool st = true;
+        // Create a red Ellipse.
+        
+        Random rng = new Random();
+        Rectangle ClickMenu = new Rectangle();
 
         public MainWindow()
         {
             InitializeComponent();
             Timer = new System.Windows.Threading.DispatcherTimer();
             Timer.Interval = new TimeSpan(0, 0, 0, 0, 1);
-            Frame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            
+                StackPanel myStackPanel = new StackPanel();
+
+           
+            SolidColorBrush mySolidColorBrush = new SolidColorBrush();
+                mySolidColorBrush.Color = Color.FromArgb(0, 0, 0, 0);
+
+            //// =====================================================================================
+
+                Fon.Fill = mySolidColorBrush;
+            ImageBrush ib = new ImageBrush();
+              ib.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Интерфейс/Фон.png"));
+             Fon.Fill = ib;
+            
+            Fon.Width = 1280;
+            Fon.Height = 720;
+            Fon.MouseDown += Fon_MouseDown;
+
+            //// =====================================================================================
+            
+
+            ClickMenu.Fill = mySolidColorBrush;
+            ImageBrush CM = new ImageBrush();
+              CM.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Интерфейс/Меню/Кнопка меню.png"));
+            ClickMenu.Fill = CM;
+
+            ClickMenu.Width = 140;
+            ClickMenu.Height = 140;
+            ClickMenu.Margin = new Thickness(1120, 10, 0, 0);
+            grid.Children.Add(ClickMenu);
+
+            ClickMenu.MouseDown += ClickMenu_MouseDown;
+
+            //// =====================================================================================
+
         }
 
-        private void Tick1(object sender, EventArgs e)
+        private void ClickMenu_MouseDown(object sender, MouseEventArgs e)
         {
-            if (i < 4) { Timer.Stop(); st = false; }
-            else
-            {
-                Stack.Width = i;
-                Frame.Margin = new Thickness((i - 4), 0, 0, 0);
-                i -= 4;
-            }
+            menu.Visibility = Visibility.Visible;
+            ex.Visibility = Visibility.Visible;
+            exit.Visibility = Visibility.Visible;
         }
 
-        private void Tick2(object sender, EventArgs e)
+        private void ex_MouseDown(object sender, MouseEventArgs e)
         {
-            if (i > 354) { Timer.Stop(); st = true; }
-            else
-            {
-                Stack.Width = i;
-                Frame.Margin = new Thickness((i + 4), 0, 0, 0);
-                i += 4;
-            }
-        }
-
-        private void m1_Click(object sender, RoutedEventArgs e)
-        {
-
-            if (st == true)
-            {
-                Timer.Tick += new EventHandler(Tick1);
-                Timer.Start();
-
-            }
-
-            else
-            {
-                Timer.Tick += new EventHandler(Tick2);
-                Timer.Start();
-            }
+            menu.Visibility = Visibility.Hidden;
+            ex.Visibility = Visibility.Hidden;
+            exit.Visibility = Visibility.Hidden;
         }
 
         double kl = 0;
         double aup = 1;
-       double Up=1;
+        double Up=1;
 
-        private void Clik_Click(object sender, RoutedEventArgs e)
+        private void Fon_MouseDown(object sender, MouseEventArgs e)
         {
             kl = kl + aup;
             sh.Content = kl + " кл.";
@@ -88,7 +99,7 @@ namespace WpfApp1
                     kl = kl - Up;
                     Up = Up * 2;
                     aup = aup + 1;
-                    apps.Text = Up + " кл.";
+                   // apps.Text = Up + " кл.";
                     sh.Content = kl + " кл.";
                     och.Content = "Очков за клики: " + aup;
             }
@@ -98,16 +109,9 @@ namespace WpfApp1
            }
         }
 
-        private void dos_Click(object sender, RoutedEventArgs e)
-        {   Достижения och = new Достижения();
-
-            och.sh1.Content = sh.Content;
-            if (och.ShowDialog() == true)
-            {
-            }
-
-        }
-        private void exit_Click(object sender, RoutedEventArgs e)
+       
+        
+        private void Exit_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.Close();
         }
