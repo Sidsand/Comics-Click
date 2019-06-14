@@ -3,11 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="Comics Click" Height="720" Width="1280" AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize">
 
-    <Grid x:Name="grid"  Background="#FFF10000" Height="720" HorizontalAlignment="Center" VerticalAlignment="Center" Width="1280">
+    <Grid x:Name="grid"  Background="#FFA00606" Height="720" HorizontalAlignment="Center" VerticalAlignment="Center" Width="1280" UseLayoutRounding="False" ScrollViewer.HorizontalScrollBarVisibility="Auto">
         <Grid.RenderTransform>
             <TransformGroup>
                 <ScaleTransform/>
@@ -17,39 +18,106 @@
             </TransformGroup>
         </Grid.RenderTransform>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1280"/>
-        </Grid.ColumnDefinitions>
 
-        <StackPanel x:Name="grid1"  HorizontalAlignment="Left" Height="720" Width="1280" Margin="0,0,0,0" VerticalAlignment="Top">
-            <Rectangle x:Name="Fon" Height="720" Width="1280"/>
+        <StackPanel x:Name="grid1"  HorizontalAlignment="Left" Height="720" Width="1280" Margin="0,0,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <Rectangle x:Name="Fon" Height="720" Width="1280">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="Интерфейс/Фон4.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
         </StackPanel>
 
-        <Border x:Name="ex" BorderBrush="Black" BorderThickness="1"  Width="1280" Height="720" Margin="0,0,0,0" MouseDown="ex_MouseDown" Visibility="Hidden" Cursor="Hand">
+        <Image x:Name="stellag1" Margin="362,294,806,242" Source="Мебель/Стеллаж1.png" Stretch="Fill" Visibility="Hidden" Width="112" Height="184"/>
+        <Image x:Name="stellag2" Margin="599,340,565,194" Source="Мебель/Стеллаж2.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag3" Margin="530,374,638,162" Source="Мебель/Стеллаж2.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag4" Margin="683,382,481,152" Source="Мебель/Стеллаж2.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag5" Margin="615,416,553,120" Source="Мебель/Стеллаж2.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="polka" Margin="490,217,670,427" Source="Мебель/полка.png" Stretch="Fill" Visibility="Hidden" Width="120" Height="76"/>
+        <Image x:Name="knigi" Margin="520,352,726,340" Source="Мебель/книги.png" Stretch="Fill" Visibility="Hidden" Width="34" Height="28"/>
+        <Image x:Name="derevo" Margin="880,392,352,187" Source="Мебель/Дерево.png" Stretch="Fill" Visibility="Hidden" Width="48" Height="141"/>
+
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="720" Width="1280" Margin="0,0,0,0" VerticalAlignment="Top" MouseDown="Fon_MouseDown" >
+            <Border.Background>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Border.Background>
+        </Border>
+
+
+        <Rectangle x:Name="ClickMenu" HorizontalAlignment="Left" Height="140" Margin="1120,20,0,0" VerticalAlignment="Top" Width="140" MouseDown="ClickMenu_MouseDown">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="Интерфейс/Меню/Кнопка меню.png"/>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Border x:Name="EXMENU" BorderBrush="Black" BorderThickness="1"  Width="1280" Height="720" Margin="0,0,0,0" MouseDown="EXMENU_MouseDown" Visibility="Hidden" Cursor="Hand" Grid.ColumnSpan="2">
             <Border.Background>
                 <SolidColorBrush Color="Black" Opacity="0.4"/>
             </Border.Background>
         </Border>
 
-        <Label x:Name="sh" Content="0 кл." Margin="200,20,0,0" Height="70" FontFamily="Simplified Arabic Fixed" FontSize="24" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="345" FontWeight="Bold">
+        <Label x:Name="sh" Content="0 кл." Margin="232,10,0,0" Height="44" FontFamily="Simplified Arabic Fixed" FontSize="24" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="414" FontWeight="Bold" BorderBrush="Black">
             <Label.Background>
                 <SolidColorBrush Color="White" Opacity="0.75"/>
             </Label.Background>
         </Label>
 
-        <Label x:Name="och" Content="Очков за клики: 1" HorizontalAlignment="Left" Margin="735,20,0,0" VerticalAlignment="Top" Height="70" Width="345" Background="White" Opacity="0.8" FontSize="24" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Simplified Arabic Fixed" FontWeight="Bold"/>
+        <Label x:Name="och" Content="Очков за клик: 1" HorizontalAlignment="Left" Margin="667,10,0,0" VerticalAlignment="Top" Height="44" Width="414" Background="White" Opacity="0.8" FontSize="24" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Simplified Arabic Fixed" FontWeight="Bold" BorderBrush="Black"/>
 
-        <Border x:Name="menu" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="500" Width="900" Margin="190,160,0,0" Visibility="Hidden" Cursor="Arrow">
-            <Border.BorderBrush>
-                <SolidColorBrush Color="Black" Opacity="0.5"/>
-            </Border.BorderBrush>
-            <Border.Background>
-                <SolidColorBrush Color="#FF5F52B0" Opacity="0.6"/>
-            </Border.Background>
-            <Image Margin="0,0,0,0" Source="Меню (макет).png" Stretch="Fill"/>
+        <Label x:Name="avclick" Content="Авто: 0 Кл/сек" HorizontalAlignment="Left" Margin="452,59,0,0" VerticalAlignment="Top" Height="35" Width="414" FontFamily="Simplified Arabic Fixed" FontSize="24" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="Black">
+            <Label.Background>
+                <SolidColorBrush Color="White" Opacity="0.75"/>
+            </Label.Background>
+        </Label>
+
+
+        <Border x:Name="menuS" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="500" Width="900" Margin="190,160,0,0" Visibility="Hidden" Cursor="Arrow">
+            <Image  Height="470" Width="900" Margin="0,0,0,0" Source="Интерфейс.Стеллаж.png" Stretch="Fill"/>
         </Border>
 
-        <Border x:Name="exit" BorderThickness="1" HorizontalAlignment="Left" Height="106" Margin="915,171,0,0" VerticalAlignment="Top" Width="165" Visibility="Hidden" Cursor="Hand" MouseDown="Exit_MouseDown">
+        <Border x:Name="menuD" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="500" Width="900" Margin="190,160,0,0" Visibility="Hidden" Cursor="Arrow">
+            <Image  Height="470" Width="900" Margin="0,0,0,0" Source="Интерфейс. Декор.png" Stretch="Fill"/>
+        </Border>
+
+        <Border x:Name="menuV" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="500" Width="900" Margin="190,160,0,0" Visibility="Hidden" Cursor="Arrow">
+            <Image Height="470" Width="900" Margin="0,0,0,0" Source="Интерфейс.Валюта.png" Stretch="Fill" />
+        </Border>
+
+        <Border x:Name="achiv" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="500" Width="900" Margin="190,160,0,0" Visibility="Hidden" Cursor="Arrow">
+            <Image Height="470" Width="900" Margin="0,0,0,0" Source="Интерфейс.Достижения.png" Stretch="Fill"/>
+        </Border>
+
+        <Border x:Name="stats" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="500" Width="900" Margin="190,160,0,0" Visibility="Hidden" Cursor="Arrow">
+            <Image Height="470" Width="900" Margin="0,0,0,0" Source="Интерфейс.Статистика.png" Stretch="Fill"/>
+        </Border>
+
+
+        <ScrollViewer x:Name="scroll_S1" FocusVisualStyle="{x:Null}" Margin="201,374,199,85" Visibility="Hidden">
+            <ScrollViewer.Background>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </ScrollViewer.Background>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="stel1" Margin="20,20,0,0" Width="400" Height="120" Content="Стеллаж   20 кл." HorizontalAlignment="Left" VerticalAlignment="Top" Click="St1_Click" />
+                <Button x:Name="stel2" Margin="440,20,0,0" Width="400"  Height="120" Content="Стеллаж    150 кл." HorizontalAlignment="Left" VerticalAlignment="Top" Click="St2_Click"/>
+                <Button x:Name="stel3" Margin="20,150,0,0" Width="400"  Height="120" Content="Стеллаж    400 кл." HorizontalAlignment="Left" VerticalAlignment="Top" Click="St3_Click"/>
+                <Button x:Name="stel4" Margin="440,150,0,0" Width="400"  Height="120" Content="Стеллаж    800 кл." HorizontalAlignment="Left" VerticalAlignment="Top" Click="St4_Click"/>
+                <Button x:Name="stel5" Margin="20,280,0,0" Width="400"  Height="120" Content="Стеллаж    1200 кл." HorizontalAlignment="Left" VerticalAlignment="Top" Click="St5_Click"/>
+                <Button x:Name="stel6" Margin="440,280,0,0" Width="400"  Height="120" Content="Полка    1500 кл." HorizontalAlignment="Left" VerticalAlignment="Top" Click="St6_Click"/>
+            </Grid>
+        </ScrollViewer>
+
+        <ScrollViewer x:Name="scroll_D1" HorizontalAlignment="Left" Height="261" Margin="201,374,0,0" VerticalAlignment="Top" Width="880" Visibility="Hidden">
+            <Grid Height="426" Width="865">
+                <Button x:Name="P1" Content="Плакат   50 кл." Margin="10,10,0,0" Width="840" HorizontalAlignment="Left" VerticalAlignment="Top" Height="95" Click="P1_Click"/>
+                <Button x:Name="P2" Content="Дерево   200 кл." Margin="10,110,0,0" Width="840" HorizontalAlignment="Left" VerticalAlignment="Top" Height="95" Click="P2_Click"/>
+                <Button x:Name="P3" Content="Плакат   500 кл." Margin="10,210,0,0" Width="840" HorizontalAlignment="Left" VerticalAlignment="Top" Height="95" Click="P3_Click"/>
+                <Button x:Name="P4" Content="Книги   700 кл." Margin="10,310,0,0" Width="840" HorizontalAlignment="Left" VerticalAlignment="Top" Height="95" Click="P4_Click"/>
+            </Grid>
+        </ScrollViewer>
+
+        <Border x:Name="S1" BorderThickness="1" HorizontalAlignment="Left" Height="56" Margin="201,305,0,0" VerticalAlignment="Top" Width="294" MouseDown="S1_MouseDown" Visibility="Hidden">
             <Border.BorderBrush>
                 <SolidColorBrush Color="Black" Opacity="0"/>
             </Border.BorderBrush>
@@ -57,10 +125,71 @@
                 <SolidColorBrush Color="Black" Opacity="0"/>
             </Border.Background>
         </Border>
-       
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="140" Margin="20,20,0,0" VerticalAlignment="Top" Width="140" Background="Black">
-            <Image Margin="0,0,0,0" Source="Иконка.png" Stretch="Fill" Height="140" Width="140" OpacityMask="Black"/>
+        <Border x:Name="D1" BorderThickness="1" HorizontalAlignment="Left" Height="56" Margin="495,305,0,0" VerticalAlignment="Top" Width="292" MouseDown="D1_MouseDown" Visibility="Hidden">
+            <Border.BorderBrush>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Border.BorderBrush>
+            <Border.Background>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Border.Background>
         </Border>
+        <Border x:Name="V1" BorderThickness="1" HorizontalAlignment="Left" Height="56" Margin="787,305,0,0" VerticalAlignment="Top" Width="294" MouseDown="V1_MouseDown" Visibility="Hidden">
+            <Border.BorderBrush>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Border.BorderBrush>
+            <Border.Background>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Border.Background>
+        </Border>
+
+        <Border x:Name="exit" BorderThickness="1" HorizontalAlignment="Left" Height="109" Margin="911,181,0,0" VerticalAlignment="Top" Width="173" Visibility="Hidden" Cursor="Hand" MouseDown="Exit_MouseDown">
+            <Border.Background>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Border.Background>
+            <Border.BorderBrush>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Border.BorderBrush>
+        </Border>
+
+        <Border x:Name="shop" BorderThickness="1" HorizontalAlignment="Left" Height="109" Margin="197,181,0,0" VerticalAlignment="Top" Width="173" Visibility="Hidden" Cursor="Hand" MouseDown="Shop_MouseDown">
+            <Border.Background>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Border.Background>
+        </Border>
+        <Border x:Name="stat" BorderThickness="1" HorizontalAlignment="Left" Height="109" Margin="375,181,0,0" VerticalAlignment="Top" Width="174" Visibility="Hidden" Cursor="Hand" MouseDown="Stat_MouseDown">
+            <Border.Background>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Border.Background>
+        </Border>
+        <Border x:Name="achivki" BorderThickness="1" HorizontalAlignment="Left" Height="109" Margin="554,181,0,0" VerticalAlignment="Top" Width="173" Visibility="Hidden" Cursor="Hand" MouseDown="Achivki_MouseDown">
+            <Border.Background>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Border.Background>
+        </Border>
+        <Border x:Name="top" BorderThickness="1" HorizontalAlignment="Left" Height="109" Margin="733,181,0,0" VerticalAlignment="Top" Width="173" Visibility="Hidden" Cursor="Hand" MouseDown="Top_MouseDown">
+            <Border.Background>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Border.Background>
+        </Border>
+
+        <Image x:Name="main_menu" gif:ImageBehavior.AnimatedSource="1.gif" Visibility="Visible"/>
+
+        <Rectangle x:Name="start" HorizontalAlignment="Left" Height="110" Margin="770,360,0,0" VerticalAlignment="Top" Width="460" MouseDown="start_MouseDown">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle x:Name="exit1" HorizontalAlignment="Left" Height="110" Margin="860,490,0,0" VerticalAlignment="Top" Width="370" MouseDown="exit1_MouseDown">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="Black" Opacity="0"/>
+            </Rectangle.Fill>
+        </Rectangle>
+
+
+
+
 
     </Grid>
+
 </Window>

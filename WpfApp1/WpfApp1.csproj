@@ -49,15 +49,15 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=1.4.18.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.1.4.18\lib\net\WpfAnimatedGif.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Достижения.xaml.cs">
-      <DependentUpon>Достижения.xaml</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -70,10 +70,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Достижения.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -93,6 +89,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -105,13 +102,40 @@
     <Resource Include="Интерфейс\Меню\Кнопка меню.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Интерфейс\Фон.png" />
+    <Resource Include="Интерфейс. Декор.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Меню %28макет%29.png" />
+    <Resource Include="Интерфейс.Валюта.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Иконка.png" />
+    <Resource Include="Интерфейс.Достижения.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Интерфейс.Статистика.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Интерфейс.Стеллаж.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="1.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Интерфейс\Фон4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Мебель\Стеллаж1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Мебель\Стеллаж2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Мебель\полка.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Мебель\Дерево.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Мебель\книги.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

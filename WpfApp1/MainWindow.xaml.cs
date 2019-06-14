@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace WpfApp1
 {
@@ -20,18 +21,26 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
-        System.Windows.Threading.DispatcherTimer Timer;
-        // Create a red Ellipse.
-        
+        DispatcherTimer avtotim = new DispatcherTimer();
+
+
+
         Random rng = new Random();
-        Rectangle ClickMenu = new Rectangle();
+
+        Rectangle D = new Rectangle();
 
         public MainWindow()
         {
             InitializeComponent();
-            Timer = new System.Windows.Threading.DispatcherTimer();
-            Timer.Interval = new TimeSpan(0, 0, 0, 0, 1);
-            
+            avtotim.Interval = new TimeSpan(0, 0, 0, 1);
+            avtotim.Tick += new EventHandler(Timer_click);
+
+  
+
+            //// =====================================================================================
+            WindowState = WindowState.Maximized;
+              WindowStyle = WindowStyle.None;
+
                 StackPanel myStackPanel = new StackPanel();
 
            
@@ -42,45 +51,52 @@ namespace WpfApp1
 
                 Fon.Fill = mySolidColorBrush;
             ImageBrush ib = new ImageBrush();
-              ib.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Интерфейс/Фон.png"));
+              ib.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Интерфейс/Фон4.png"));
              Fon.Fill = ib;
             
             Fon.Width = 1280;
             Fon.Height = 720;
-            Fon.MouseDown += Fon_MouseDown;
+           
 
             //// =====================================================================================
-            
-
-            ClickMenu.Fill = mySolidColorBrush;
-            ImageBrush CM = new ImageBrush();
-              CM.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Интерфейс/Меню/Кнопка меню.png"));
-            ClickMenu.Fill = CM;
-
-            ClickMenu.Width = 140;
-            ClickMenu.Height = 140;
-            ClickMenu.Margin = new Thickness(1120, 10, 0, 0);
-            grid.Children.Add(ClickMenu);
-
-            ClickMenu.MouseDown += ClickMenu_MouseDown;
-
-            //// =====================================================================================
-
         }
 
-        private void ClickMenu_MouseDown(object sender, MouseEventArgs e)
+       
+
+        int avto = 0;
+
+        private void Timer_click(object sender, EventArgs e)
         {
-            menu.Visibility = Visibility.Visible;
-            ex.Visibility = Visibility.Visible;
-            exit.Visibility = Visibility.Visible;
+            kl = kl + avto;
+            sh.Content = kl + " кл.";
         }
 
-        private void ex_MouseDown(object sender, MouseEventArgs e)
+        private void EXMENU_MouseDown(object sender, MouseEventArgs e)
         {
-            menu.Visibility = Visibility.Hidden;
-            ex.Visibility = Visibility.Hidden;
+            menuS.Visibility = Visibility.Hidden;
+            menuD.Visibility = Visibility.Hidden;
+            menuV.Visibility = Visibility.Hidden;
+            stats.Visibility = Visibility.Hidden;
+            achiv.Visibility = Visibility.Hidden;
+
+            shop.Visibility = Visibility.Hidden;
+            stat.Visibility = Visibility.Hidden;
+            achivki.Visibility = Visibility.Hidden;
+            top.Visibility = Visibility.Hidden;
             exit.Visibility = Visibility.Hidden;
+
+            EXMENU.Visibility = Visibility.Hidden;
+
+            scroll_S1.Visibility = Visibility.Hidden;
+            scroll_D1.Visibility = Visibility.Hidden;
+
+            S1.Visibility = Visibility.Hidden;
+            D1.Visibility = Visibility.Hidden;
+            V1.Visibility = Visibility.Hidden;
+
+            ClickMenu.Visibility = Visibility.Visible;
         }
+        
 
         double kl = 0;
         double aup = 1;
@@ -90,30 +106,548 @@ namespace WpfApp1
         {
             kl = kl + aup;
             sh.Content = kl + " кл.";
+
         }
 
-        private void App_Click(object sender, RoutedEventArgs e)
-        { 
-            if (kl >= Up)
-            {
-                    kl = kl - Up;
-                    Up = Up * 2;
-                    aup = aup + 1;
-                   // apps.Text = Up + " кл.";
-                    sh.Content = kl + " кл.";
-                    och.Content = "Очков за клики: " + aup;
-            }
-            else
-            {
-                MessageBox.Show("Нехватает кликов");
-           }
-        }
-
-       
         
+
+
+        private void S1_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            menuS.Visibility = Visibility.Visible;
+            menuD.Visibility = Visibility.Hidden;
+            menuV.Visibility = Visibility.Hidden;
+
+
+            scroll_S1.Visibility = Visibility.Visible;
+            scroll_D1.Visibility = Visibility.Hidden;
+        }
+        
+        private void D1_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            menuS.Visibility = Visibility.Hidden;
+            menuD.Visibility = Visibility.Visible;
+            menuV.Visibility = Visibility.Hidden;
+
+            scroll_S1.Visibility = Visibility.Hidden;
+            scroll_D1.Visibility = Visibility.Visible;
+        }
+
+        private void V1_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            menuS.Visibility = Visibility.Hidden;
+            menuD.Visibility = Visibility.Hidden;
+            menuV.Visibility = Visibility.Visible;
+
+            scroll_S1.Visibility = Visibility.Hidden;
+            scroll_D1.Visibility = Visibility.Hidden;
+        }
+
+
+
         private void Exit_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            shop.Visibility = Visibility.Hidden;
+            stat.Visibility = Visibility.Hidden;
+            achivki.Visibility = Visibility.Hidden;
+            top.Visibility = Visibility.Hidden;
+            exit.Visibility = Visibility.Hidden;
+            
+            stats.Visibility = Visibility.Hidden;
+            achiv.Visibility = Visibility.Hidden;
+            menuS.Visibility = Visibility.Hidden;
+            EXMENU.Visibility = Visibility.Hidden;
+            menuD.Visibility = Visibility.Hidden;
+            menuV.Visibility = Visibility.Hidden;
+
+
+            scroll_S1.Visibility = Visibility.Hidden;
+            scroll_D1.Visibility = Visibility.Hidden;
+            S1.Visibility = Visibility.Hidden;
+            D1.Visibility = Visibility.Hidden;
+            V1.Visibility = Visibility.Hidden;
+
+            ClickMenu.Visibility = Visibility.Hidden;
+
+            sh.Visibility = Visibility.Hidden;
+            och.Visibility = Visibility.Hidden;
+
+            start.Visibility = Visibility.Visible;
+            exit1.Visibility = Visibility.Visible;
+            main_menu.Visibility = Visibility.Visible;
+            
+        }
+
+        private void Shop_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            menuS.Visibility = Visibility.Visible;
+            stats.Visibility = Visibility.Hidden;
+            achiv.Visibility = Visibility.Hidden;
+
+            menuD.Visibility = Visibility.Hidden;
+            menuV.Visibility = Visibility.Hidden;
+            scroll_D1.Visibility = Visibility.Hidden;
+            scroll_S1.Visibility = Visibility.Visible;
+            S1.Visibility = Visibility.Visible;
+            D1.Visibility = Visibility.Visible;
+            V1.Visibility = Visibility.Visible;
+        }
+
+        private void Stat_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            menuS.Visibility = Visibility.Hidden;
+            menuD.Visibility = Visibility.Hidden;
+            menuV.Visibility = Visibility.Hidden;
+            scroll_S1.Visibility = Visibility.Hidden;
+            scroll_D1.Visibility = Visibility.Hidden;
+            S1.Visibility = Visibility.Hidden;
+            D1.Visibility = Visibility.Hidden;
+            V1.Visibility = Visibility.Hidden;
+
+            stats.Visibility = Visibility.Visible;
+
+            achiv.Visibility = Visibility.Hidden;
+        }
+
+        private void Achivki_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            menuS.Visibility = Visibility.Hidden;
+            menuD.Visibility = Visibility.Hidden;
+            menuV.Visibility = Visibility.Hidden;
+            scroll_S1.Visibility = Visibility.Hidden;
+            scroll_D1.Visibility = Visibility.Hidden;
+            S1.Visibility = Visibility.Hidden;
+            D1.Visibility = Visibility.Hidden;
+            V1.Visibility = Visibility.Hidden;
+
+            stats.Visibility = Visibility.Hidden;
+
+            achiv.Visibility = Visibility.Visible;
+        }
+
+        private void Top_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            menuS.Visibility = Visibility.Hidden;
+            menuD.Visibility = Visibility.Hidden;
+            menuV.Visibility = Visibility.Hidden;
+            scroll_S1.Visibility = Visibility.Hidden;
+            scroll_D1.Visibility = Visibility.Hidden;
+            S1.Visibility = Visibility.Hidden;
+            D1.Visibility = Visibility.Hidden;
+            V1.Visibility = Visibility.Hidden;
+
+            stats.Visibility = Visibility.Hidden;
+
+            achiv.Visibility = Visibility.Visible;
+        }
+
+        private void ClickMenu_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            shop.Visibility = Visibility.Visible;
+            stat.Visibility = Visibility.Visible;
+            achivki.Visibility = Visibility.Visible;
+            top.Visibility = Visibility.Visible;
+            exit.Visibility = Visibility.Visible;
+
+            menuS.Visibility = Visibility.Visible;
+            EXMENU.Visibility = Visibility.Visible;
+  
+            scroll_S1.Visibility = Visibility.Visible;
+            S1.Visibility = Visibility.Visible;
+            D1.Visibility = Visibility.Visible;
+            V1.Visibility = Visibility.Visible;
+
+            ClickMenu.Visibility = Visibility.Hidden;
+        }
+
+        private void exit1_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.Close();
         }
+
+        private void start_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ClickMenu.Visibility = Visibility.Visible;
+
+            sh.Visibility = Visibility.Visible;
+            och.Visibility = Visibility.Visible;
+
+            start.Visibility = Visibility.Hidden;
+            exit1.Visibility = Visibility.Hidden;
+
+            main_menu.Visibility = Visibility.Hidden;
+        }
+
+        private void St1_Click(object sender, RoutedEventArgs e)
+        {
+            if (kl >= 20)
+            {
+                stellag1.Visibility = Visibility.Visible;
+                stel1.IsEnabled = false;
+
+                shop.Visibility = Visibility.Hidden;
+                stat.Visibility = Visibility.Hidden;
+                achivki.Visibility = Visibility.Hidden;
+                top.Visibility = Visibility.Hidden;
+                exit.Visibility = Visibility.Hidden;
+
+                menuS.Visibility = Visibility.Hidden;
+                EXMENU.Visibility = Visibility.Hidden;
+
+                scroll_S1.Visibility = Visibility.Hidden;
+                S1.Visibility = Visibility.Hidden;
+                D1.Visibility = Visibility.Hidden;
+                V1.Visibility = Visibility.Hidden;
+
+                ClickMenu.Visibility = Visibility.Visible;
+
+
+                aup = aup + 1;
+                och.Content = "Очков за клики: " + aup;
+
+                kl = kl - 20;
+                sh.Content = kl + " кл.";
+            }
+            else
+            {
+                MessageBox.Show("Не хватает кликов");
+            }
+        }
+        private void St2_Click(object sender, RoutedEventArgs e)
+        {
+            if (kl >= 150)
+            {
+                stellag2.Visibility = Visibility.Visible;
+                stel2.IsEnabled = false;
+
+                shop.Visibility = Visibility.Hidden;
+                stat.Visibility = Visibility.Hidden;
+                achivki.Visibility = Visibility.Hidden;
+                top.Visibility = Visibility.Hidden;
+                exit.Visibility = Visibility.Hidden;
+
+                menuS.Visibility = Visibility.Hidden;
+                EXMENU.Visibility = Visibility.Hidden;
+
+                scroll_S1.Visibility = Visibility.Hidden;
+                S1.Visibility = Visibility.Hidden;
+                D1.Visibility = Visibility.Hidden;
+                V1.Visibility = Visibility.Hidden;
+
+                ClickMenu.Visibility = Visibility.Visible;
+
+
+                aup = aup + 2;
+                och.Content = "Очков за клики: " + aup;
+
+                kl = kl - 150;
+                sh.Content = kl + " кл.";
+            }
+            else
+            {
+                MessageBox.Show("Не хватает кликов");
+            }
+        }
+        private void St3_Click(object sender, RoutedEventArgs e)
+        {
+            if (kl >= 400)
+            {
+                stellag3.Visibility = Visibility.Visible;
+                stel3.IsEnabled = false;
+
+                shop.Visibility = Visibility.Hidden;
+                stat.Visibility = Visibility.Hidden;
+                achivki.Visibility = Visibility.Hidden;
+                top.Visibility = Visibility.Hidden;
+                exit.Visibility = Visibility.Hidden;
+
+                menuS.Visibility = Visibility.Hidden;
+                EXMENU.Visibility = Visibility.Hidden;
+
+                scroll_S1.Visibility = Visibility.Hidden;
+                S1.Visibility = Visibility.Hidden;
+                D1.Visibility = Visibility.Hidden;
+                V1.Visibility = Visibility.Hidden;
+
+                ClickMenu.Visibility = Visibility.Visible;
+
+
+                aup = aup + 2;
+                och.Content = "Очков за клики: " + aup;
+
+                kl = kl - 400;
+                sh.Content = kl + " кл.";
+            }
+            else
+            {
+                MessageBox.Show("Не хватает кликов");
+            }
+        }
+        private void St4_Click(object sender, RoutedEventArgs e)
+        {
+            if (kl >= 80)
+            {
+                stellag4.Visibility = Visibility.Visible;
+                stel4.IsEnabled = false;
+
+                shop.Visibility = Visibility.Hidden;
+                stat.Visibility = Visibility.Hidden;
+                achivki.Visibility = Visibility.Hidden;
+                top.Visibility = Visibility.Hidden;
+                exit.Visibility = Visibility.Hidden;
+
+                menuS.Visibility = Visibility.Hidden;
+                EXMENU.Visibility = Visibility.Hidden;
+
+                scroll_S1.Visibility = Visibility.Hidden;
+                S1.Visibility = Visibility.Hidden;
+                D1.Visibility = Visibility.Hidden;
+                V1.Visibility = Visibility.Hidden;
+
+                ClickMenu.Visibility = Visibility.Visible;
+
+
+                aup = aup + 3;
+                och.Content = "Очков за клики: " + aup;
+
+                kl = kl - 800;
+                sh.Content = kl + " кл.";
+            }
+            else
+            {
+                MessageBox.Show("Не хватает кликов");
+            }
+        }
+        private void St5_Click(object sender, RoutedEventArgs e)
+        {
+            if (kl >= 1200)
+            {
+                stellag5.Visibility = Visibility.Visible;
+                stel5.IsEnabled = false;
+
+                shop.Visibility = Visibility.Hidden;
+                stat.Visibility = Visibility.Hidden;
+                achivki.Visibility = Visibility.Hidden;
+                top.Visibility = Visibility.Hidden;
+                exit.Visibility = Visibility.Hidden;
+
+                menuS.Visibility = Visibility.Hidden;
+                EXMENU.Visibility = Visibility.Hidden;
+
+                scroll_S1.Visibility = Visibility.Hidden;
+                S1.Visibility = Visibility.Hidden;
+                D1.Visibility = Visibility.Hidden;
+                V1.Visibility = Visibility.Hidden;
+
+                ClickMenu.Visibility = Visibility.Visible;
+
+
+                aup = aup + 3;
+                och.Content = "Очков за клики: " + aup;
+
+                kl = kl - 1200;
+                sh.Content = kl + " кл.";
+            }
+            else
+            {
+                MessageBox.Show("Не хватает кликов");
+            }
+        }
+        private void St6_Click(object sender, RoutedEventArgs e)
+        {
+            if (kl >= 1500)
+            {
+                polka.Visibility = Visibility.Visible;
+                stel6.IsEnabled = false;
+
+                shop.Visibility = Visibility.Hidden;
+                stat.Visibility = Visibility.Hidden;
+                achivki.Visibility = Visibility.Hidden;
+                top.Visibility = Visibility.Hidden;
+                exit.Visibility = Visibility.Hidden;
+
+                menuS.Visibility = Visibility.Hidden;
+                EXMENU.Visibility = Visibility.Hidden;
+
+                scroll_S1.Visibility = Visibility.Hidden;
+                S1.Visibility = Visibility.Hidden;
+                D1.Visibility = Visibility.Hidden;
+                V1.Visibility = Visibility.Hidden;
+
+                ClickMenu.Visibility = Visibility.Visible;
+
+
+                aup = aup + 3;
+                och.Content = "Очков за клики: " + aup;
+
+                kl = kl - 1200;
+                sh.Content = kl + " кл.";
+            }
+            else
+            {
+                MessageBox.Show("Не хватает кликов");
+            }
+        }
+
+        private void P1_Click(object sender, RoutedEventArgs e)
+        {
+            if (kl >= 50)
+            {
+                stellag1.Visibility = Visibility.Visible;
+                P1.IsEnabled = false;
+
+                shop.Visibility = Visibility.Hidden;
+                stat.Visibility = Visibility.Hidden;
+                achivki.Visibility = Visibility.Hidden;
+                top.Visibility = Visibility.Hidden;
+                exit.Visibility = Visibility.Hidden;
+
+                menuD.Visibility = Visibility.Hidden;
+                EXMENU.Visibility = Visibility.Hidden;
+                
+                scroll_D1.Visibility = Visibility.Hidden;
+                S1.Visibility = Visibility.Hidden;
+                D1.Visibility = Visibility.Hidden;
+                V1.Visibility = Visibility.Hidden;
+
+                ClickMenu.Visibility = Visibility.Visible;
+
+                kl = kl - 50;
+                sh.Content = kl + " кл.";
+
+                avto = avto + 1;
+                avclick.Content = "Авто: " + avto + "Кл/сек";
+
+                avtotim.Start();
+                P1.IsEnabled = false;
+            }
+            else
+            {
+                MessageBox.Show("Не хватает кликов");
+            }
+            
+        }
+        private void P2_Click(object sender, RoutedEventArgs e)
+        {
+            if (kl >= 200)
+            {
+
+
+                derevo.Visibility = Visibility.Visible;
+                P2.IsEnabled = false;
+
+                shop.Visibility = Visibility.Hidden;
+                stat.Visibility = Visibility.Hidden;
+                achivki.Visibility = Visibility.Hidden;
+                top.Visibility = Visibility.Hidden;
+                exit.Visibility = Visibility.Hidden;
+
+                menuD.Visibility = Visibility.Hidden;
+                EXMENU.Visibility = Visibility.Hidden;
+
+                scroll_D1.Visibility = Visibility.Hidden;
+                S1.Visibility = Visibility.Hidden;
+                D1.Visibility = Visibility.Hidden;
+                V1.Visibility = Visibility.Hidden;
+
+                ClickMenu.Visibility = Visibility.Visible;
+
+                kl = kl - 200;
+                sh.Content = kl + " кл.";
+
+                avto = avto + 3;
+                avclick.Content = "Авто: " + avto + "Кл/сек";
+
+                avtotim.Start();
+                P1.IsEnabled = false;
+            }
+            else
+            {
+                MessageBox.Show("Не хватает кликов");
+            }
+
+        }
+        private void P3_Click(object sender, RoutedEventArgs e)
+        {
+            if (kl >= 500)
+            {
+
+
+                stellag1.Visibility = Visibility.Visible;
+                P3.IsEnabled = false;
+
+                shop.Visibility = Visibility.Hidden;
+                stat.Visibility = Visibility.Hidden;
+                achivki.Visibility = Visibility.Hidden;
+                top.Visibility = Visibility.Hidden;
+                exit.Visibility = Visibility.Hidden;
+
+                menuD.Visibility = Visibility.Hidden;
+                EXMENU.Visibility = Visibility.Hidden;
+
+                scroll_D1.Visibility = Visibility.Hidden;
+                S1.Visibility = Visibility.Hidden;
+                D1.Visibility = Visibility.Hidden;
+                V1.Visibility = Visibility.Hidden;
+
+                ClickMenu.Visibility = Visibility.Visible;
+
+                kl = kl - 500;
+                sh.Content = kl + " кл.";
+
+                avto = avto + 5;
+                avclick.Content = "Авто: " + avto + "Кл/сек";
+
+                avtotim.Start();
+                P1.IsEnabled = false;
+            }
+            else
+            {
+                MessageBox.Show("Не хватает кликов");
+            }
+
+        }
+        private void P4_Click(object sender, RoutedEventArgs e)
+        {
+            if (kl >= 700)
+            {
+
+
+                knigi.Visibility = Visibility.Visible;
+                P4.IsEnabled = false;
+
+                shop.Visibility = Visibility.Hidden;
+                stat.Visibility = Visibility.Hidden;
+                achivki.Visibility = Visibility.Hidden;
+                top.Visibility = Visibility.Hidden;
+                exit.Visibility = Visibility.Hidden;
+
+                menuD.Visibility = Visibility.Hidden;
+                EXMENU.Visibility = Visibility.Hidden;
+
+                scroll_D1.Visibility = Visibility.Hidden;
+                S1.Visibility = Visibility.Hidden;
+                D1.Visibility = Visibility.Hidden;
+                V1.Visibility = Visibility.Hidden;
+
+                ClickMenu.Visibility = Visibility.Visible;
+
+                kl = kl - 700;
+                sh.Content = kl + " кл.";
+
+                avto = avto + 6;
+                avclick.Content = "Авто: " + avto + "Кл/сек";
+
+                avtotim.Start();
+                P1.IsEnabled = false;
+            }
+            else
+            {
+                MessageBox.Show("Не хватает кликов");
+            }
+
+        }
+
+       
     }
 }
