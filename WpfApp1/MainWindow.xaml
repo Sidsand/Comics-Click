@@ -172,7 +172,7 @@
             </Border.Background>
         </Border>
 
-        <Image x:Name="main_menu" gif:ImageBehavior.AnimatedSource="1.gif" Visibility="Visible"/>
+        <Image x:Name="main_menu" gif:ImageBehavior.AnimatedSource="1.gif" Visibility="Hidden"/>
 
         <Rectangle x:Name="start" HorizontalAlignment="Left" Height="110" Margin="770,360,0,0" VerticalAlignment="Top" Width="460" MouseDown="start_MouseDown">
             <Rectangle.Fill>
@@ -185,7 +185,13 @@
                 <SolidColorBrush Color="Black" Opacity="0"/>
             </Rectangle.Fill>
         </Rectangle>
-
+        
+        
+        <Rectangle x:Name="anime" HorizontalAlignment="Left" Height="91"  Margin="812,399,0,0" VerticalAlignment="Top" Width="48" Visibility="Hidden">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="pic/deffka_slide2s.gif" Stretch="None" AlignmentX="Left" AlignmentY="Top" />
+            </Rectangle.Fill>
+        </Rectangle>
 
 
 

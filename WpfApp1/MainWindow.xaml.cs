@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Windows.Media.Animation;
 
 namespace WpfApp1
 {
@@ -106,10 +107,138 @@ namespace WpfApp1
         {
             kl = kl + aup;
             sh.Content = kl + " кл.";
-
+            animation_init();
         }
 
-        
+        Rectangle deffka = new Rectangle();
+        int frame = 0;
+        int transx = 0, transy = 0;
+        int speed = 5;
+        int direction = 1;
+
+        const int top_limit = 0;
+        const int left_limit = 0;
+        const int bot_limit = 500;
+        const int right_limit = 1000;
+
+        Random rand = new Random();
+        System.Windows.Threading.DispatcherTimer timer;
+
+        // должно работать, но хз как
+
+        //private void animation_init()
+        //{
+        //    ObjectAnimationUsingKeyFrames animation = new ObjectAnimationUsingKeyFrames();
+        //    animation.BeginTime = TimeSpan.FromSeconds(0);
+        //    Storyboard.SetTarget(animation, image);
+        //    Storyboard.SetTargetProperty(animation, new PropertyPath("(Image.Source)"));
+        //    DiscreteObjectKeyFrame keyFrame = new DiscreteObjectKeyFrame(BitmapFrame.Create(uri), TimeSpan.FromSeconds(0.7));
+        //    animation.KeyFrames.Add(keyFrame);
+        //    myStoryboard.Children.Add(animation);
+        //    myStoryboard.Begin();
+        //}
+
+
+        // раньше работало, теперь не работает
+
+        private void animation_init()
+        {
+
+            deffka.Height = 91;
+            deffka.Width = 48;
+            ImageBrush ib = new ImageBrush();
+            ib.AlignmentX = AlignmentX.Left;
+
+            ib.AlignmentY = AlignmentY.Top;
+            ib.Stretch = Stretch.None;
+            ib.ViewboxUnits = BrushMappingMode.Absolute;
+            deffka.Fill = ib;
+            ib.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/pic/deffka_slide2s.gif", UriKind.Absolute));
+            deffka.Margin = new Thickness(0, 0, 0, 0);
+            anime = deffka;
+            //deffka.RenderTransform = new TranslateTransform(this.Width / 2, this.Height / 2);
+            //transy = Convert.ToInt32(this.Height / 2);
+            //transx = Convert.ToInt32(this.Width / 2);
+
+
+            timer = new System.Windows.Threading.DispatcherTimer();
+            timer.Tick += new EventHandler(dispatcherTimer_Tick);
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 200);
+            timer.Start();
+        }
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            if (frame == 4)
+            {
+                frame = 0;
+            }
+
+            //if (rand.Next(1, 50) < 3)
+            //{
+            //    direction = rand.Next(1, 4);
+            //}
+
+            if ((transx <= left_limit))
+            {
+                direction = 2;
+            }
+            if ((transx >= right_limit))
+            {
+                direction = 1;
+            }
+            if ((transy >= bot_limit))
+            {
+                direction = 4;
+            }
+            if ((transy <= top_limit))
+            {
+                direction = 3;
+            }
+
+            if (direction == 1)
+                walk_forvard();
+            if (direction == 2)
+                walk_back();
+            if (direction == 3)
+                walk_left();
+            if (direction == 4)
+                walk_right();
+
+            frame++;
+        }
+
+        private void walk_forvard()
+        {
+            (deffka.Fill as ImageBrush).Viewbox = new Rect(frame * 145, 0, 145, 275);
+            transx -= 2 * speed;
+            transy -= 1 * speed;
+            deffka.RenderTransform = new TranslateTransform(transx, transy);
+        }
+
+        private void walk_back()
+        {
+            (deffka.Fill as ImageBrush).Viewbox = new Rect(frame * 141, 280, 145, 560);
+            transx += 2 * speed;
+            transy += 1 * speed;
+            deffka.RenderTransform = new TranslateTransform(transx, transy);
+        }
+        private void walk_right()
+        {
+            (deffka.Fill as ImageBrush).Viewbox = new Rect(frame * 145 + 570, 0, frame * 150 + 150, 280);
+            transx += 2 * speed;
+            transy -= 1 * speed;
+            deffka.RenderTransform = new TranslateTransform(transx, transy);
+        }
+        private void walk_left()
+        {
+            (deffka.Fill as ImageBrush).Viewbox = new Rect(frame * 145 + 580, 280, frame * 150 + 150, 560);
+            transx -= 2 * speed;
+            transy += 1 * speed;
+            deffka.RenderTransform = new TranslateTransform(transx, transy);
+        }
+
+
 
 
         private void S1_MouseDown(object sender, MouseButtonEventArgs e)

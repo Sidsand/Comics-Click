@@ -137,5 +137,11 @@
   <ItemGroup>
     <Resource Include="Мебель\книги.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pic\deffka_slide2.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pic\deffka_slide2s.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
