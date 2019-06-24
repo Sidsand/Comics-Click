@@ -13,7 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using System.Windows.Media.Animation;
+using System.Media;
+using System.Threading;
+using System.Net.Sockets;
 
 namespace WpfApp1
 {
@@ -22,58 +24,252 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
+        DispatcherTimer shec = new DispatcherTimer();
         DispatcherTimer avtotim = new DispatcherTimer();
+        DispatcherTimer rndSob = new DispatcherTimer();
 
-
-
-        Random rng = new Random();
+        Random rnd = new Random();
 
         Rectangle D = new Rectangle();
+        int avto = 0;
+        double kl = 0;
+        double aup = 1;
+        int prov = 1;
+        int prov2 = 1;
+        //int prov3 = 1;
+        //int prov4 = 1;
+
+        MediaPlayer sp = new MediaPlayer();
+        MediaPlayer sp1 = new MediaPlayer();
+        MediaPlayer mus = new MediaPlayer();
+        // MediaPlayer mus1 = new MediaPlayer();
+
+
+        public static string IPstr;
+        public string NAMEstr;
+
+        const int port = 8889;
+        NetworkStream stream = null;
+        TcpClient client = null;
+
+        private void sp1_MediaEnded(object sender, EventArgs e)
+        {
+           // mus.Position = new TimeSpan(0, 0, 0, 0);
+           // mus.Play();
+
+            
+            //mus1.Play(); 
+
+            sp.Position = new TimeSpan(0, 0, 0, 0);
+            sp.Stop();
+            sp1.Position = new TimeSpan(0, 0, 0, 0);
+            sp1.Stop();
+        }
+
+        private void mus_MediaEnded(object sender, EventArgs e)
+        {
+            mus.Position = new TimeSpan(0, 0, 0, 0);
+            mus.Play();
+
+        }
+
 
         public MainWindow()
         {
             InitializeComponent();
+
+            shec.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            shec.Tick += new EventHandler(shecik);
+            shec.Start();
+
+            //// =====================================================================================
             avtotim.Interval = new TimeSpan(0, 0, 0, 1);
             avtotim.Tick += new EventHandler(Timer_click);
 
-  
+            //// =====================================================================================
+
+            rndSob.Interval = new TimeSpan(0, 0, 180);
+            rndSob.Tick += new EventHandler(rnd_sobutie);
+            rndSob.Start();
 
             //// =====================================================================================
             WindowState = WindowState.Maximized;
-              WindowStyle = WindowStyle.None;
+            WindowStyle = WindowStyle.None;
 
-                StackPanel myStackPanel = new StackPanel();
+            StackPanel myStackPanel = new StackPanel();
 
-           
+
             SolidColorBrush mySolidColorBrush = new SolidColorBrush();
-                mySolidColorBrush.Color = Color.FromArgb(0, 0, 0, 0);
+            mySolidColorBrush.Color = Color.FromArgb(0, 0, 0, 0);
 
             //// =====================================================================================
 
-                Fon.Fill = mySolidColorBrush;
+            Fon.Fill = mySolidColorBrush;
             ImageBrush ib = new ImageBrush();
-              ib.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Интерфейс/Фон4.png"));
-             Fon.Fill = ib;
-            
+            ib.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Интерфейс/Фон4.png"));
+            Fon.Fill = ib;
+
             Fon.Width = 1280;
             Fon.Height = 720;
-           
+
 
             //// =====================================================================================
+
+            defks = new Image[15] { def1, def2, def3, def4, def5, def6, def7, def8, def9, def10, def11, def12, def13, def14, def15 };
+
+            sp.Open(new Uri("C:/Users/Admin/Desktop/Игра/Comics-Click-master/WpfApp1/Resources/Pokupka.wav", UriKind.Relative));
+            sp1.Open(new Uri("C:/Users/Admin/Desktop/Игра/Comics-Click-master/WpfApp1/Resources/Otkrut.wav", UriKind.Relative));
+            //mus.Open(new Uri("C:/Users/Admin/Desktop/Игра/Comics-Click-master/WpfApp1/Resources/8-Bit Never.mp3", UriKind.Relative));
+            mus.Open(new Uri("C:/Users/Admin/Desktop/Игра/Comics-Click-master/WpfApp1/Resources/RainbowCrash88 - Winter Wrap Up.mp3", UriKind.Relative));
+
+            mus.Play();
+
+            mus.Volume = 5.0 / 100.0;
+            //mus1.Volume = 5.0 / 100.0;
+            //// =====================================================================================
+            ///
+
+            
+            IPstr = "127.0.0.1";
+            NAMEstr = nameplayer.Text;
+
+            try
+            {
+                client = new TcpClient(IPstr, port);
+                stream = client.GetStream();
+                Thread myThread1 = new Thread(new ThreadStart(reciever));
+                myThread1.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            
+        }
+        /////////////// server
+        public void reciever()
+        {
+            //while (true)
+            //{
+            //    byte[] data = new byte[64];
+            //    StringBuilder builder = new StringBuilder();
+
+            //    int bytes = 0;
+            //    do
+            //    {
+            //        bytes = stream.Read(data, 0, data.Length);
+            //        builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
+            //    }
+            //    while (stream.DataAvailable);
+
+            //    string message = builder.ToString();
+            //    //Dispatcher.BeginInvoke(new Action(() => listBox.Items.Add(NAMEstr + ": " + message)));
+            //}
         }
 
-       
+        private void rnd_sobutie(object sender, EventArgs e)
+        {
+            sob.Visibility = Visibility.Visible;
+            rndSob.Stop();
+        }
 
-        int avto = 0;
+        private void sob_MouseDown(object sender, EventArgs e)
+        {
+            sob.Visibility = Visibility.Hidden;
+            int value = rnd.Next(1, 10);
+            switch (value)
+            {
+                case 1:
+                    MessageBox.Show("К вам в гости зашел популярный косплеер и оставил положительный отзыв о вашем магазине в сети (+5 Кл/сек)");
+                    avto = avto + 5;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
+                    break;
 
+                case 2:
+                    MessageBox.Show("Статью о вашем магазине опубликовали в журнале ИгроЛамия (+2 Кл/сек)");
+                    avto = avto + 2;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
+                    break;
+
+                case 3:
+                    MessageBox.Show("У вас купили был наплыв посетителей и вы продали довольно много товара (+120 Кл)");
+                    kl = kl + 120;
+                    sh.Content = kl + " Кл.";
+                    break;
+
+                case 4:
+                    MessageBox.Show("+4 очка за клик");
+                    avto = avto + 4;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
+                    break;
+
+                case 5:
+                         MessageBox.Show("+5 очка за клик");
+                    avto = avto + 5;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
+                    break;
+
+                case 6:
+                         MessageBox.Show("+6 очка за клик");
+                    avto = avto + 6;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
+                    break;
+
+                case 7:
+                         MessageBox.Show("+7 очка за клик");
+                    avto = avto + 7;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
+                    break;
+
+                case 8:
+                    MessageBox.Show("Сломался компьютер. На починку пришлось потратить немного денег (-130 кл)");
+                    kl = kl - 130;
+                    sh.Content = kl + " Кл.";
+                    break;
+                  
+                case 9:
+                    MessageBox.Show("Какие-то дети кинули мяч в ваше окно и оно треснуло. На починку пришлось потратить немного -100 кл ");
+                    kl = kl - 100;
+                    sh.Content = kl + " Кл.";
+                    break;
+
+                case 10:
+                    MessageBox.Show("+10 очка за клик");
+                    avto = avto + 10;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
+                    break; 
+            }
+        
+            rndSob.Start();
+        }
+
+        private void shecik(object sender, EventArgs e)
+        {
+           sh.Content = kl + " Кл.";
+        }
+        
         private void Timer_click(object sender, EventArgs e)
         {
-            kl = kl + avto;
-            sh.Content = kl + " кл.";
+          int p = 0;
+
+          while (p < avto)
+          { 
+          kl = kl + 1;
+          p++;
+          }
         }
 
         private void EXMENU_MouseDown(object sender, MouseEventArgs e)
         {
+            sp1.Play();
             menuS.Visibility = Visibility.Hidden;
             menuD.Visibility = Visibility.Hidden;
             menuV.Visibility = Visibility.Hidden;
@@ -90,159 +286,76 @@ namespace WpfApp1
 
             scroll_S1.Visibility = Visibility.Hidden;
             scroll_D1.Visibility = Visibility.Hidden;
+            scroll_Dost.Visibility = Visibility.Hidden;
 
             S1.Visibility = Visibility.Hidden;
             D1.Visibility = Visibility.Hidden;
             V1.Visibility = Visibility.Hidden;
 
-            ClickMenu.Visibility = Visibility.Visible;
-        }
-        
 
-        double kl = 0;
-        double aup = 1;
-        double Up=1;
+            ClickMenu.Visibility = Visibility.Visible;
+
+        }
+
+        Image[] defks;
+        int im_index = 0;
+
+        public void reveal(object x)
+        {
+            try
+            {
+                int n = (int)x;
+
+                Dispatcher.Invoke(() => defks[n].Visibility = Visibility.Visible);
+                Thread.Sleep(4500);
+                Dispatcher.Invoke(() => defks[n].Visibility = Visibility.Hidden);
+            }
+            catch { }
+            }
 
         private void Fon_MouseDown(object sender, MouseEventArgs e)
         {
             kl = kl + aup;
-            sh.Content = kl + " кл.";
-            animation_init();
-        }
+            sh.Content = kl + " Кл.";
 
-        Rectangle deffka = new Rectangle();
-        int frame = 0;
-        int transx = 0, transy = 0;
-        int speed = 5;
-        int direction = 1;
-
-        const int top_limit = 0;
-        const int left_limit = 0;
-        const int bot_limit = 500;
-        const int right_limit = 1000;
-
-        Random rand = new Random();
-        System.Windows.Threading.DispatcherTimer timer;
-
-        // должно работать, но хз как
-
-        //private void animation_init()
-        //{
-        //    ObjectAnimationUsingKeyFrames animation = new ObjectAnimationUsingKeyFrames();
-        //    animation.BeginTime = TimeSpan.FromSeconds(0);
-        //    Storyboard.SetTarget(animation, image);
-        //    Storyboard.SetTargetProperty(animation, new PropertyPath("(Image.Source)"));
-        //    DiscreteObjectKeyFrame keyFrame = new DiscreteObjectKeyFrame(BitmapFrame.Create(uri), TimeSpan.FromSeconds(0.7));
-        //    animation.KeyFrames.Add(keyFrame);
-        //    myStoryboard.Children.Add(animation);
-        //    myStoryboard.Begin();
-        //}
-
-
-        // раньше работало, теперь не работает
-
-        private void animation_init()
-        {
-
-            deffka.Height = 91;
-            deffka.Width = 48;
-            ImageBrush ib = new ImageBrush();
-            ib.AlignmentX = AlignmentX.Left;
-
-            ib.AlignmentY = AlignmentY.Top;
-            ib.Stretch = Stretch.None;
-            ib.ViewboxUnits = BrushMappingMode.Absolute;
-            deffka.Fill = ib;
-            ib.ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/pic/deffka_slide2s.gif", UriKind.Absolute));
-            deffka.Margin = new Thickness(0, 0, 0, 0);
-            anime = deffka;
-            //deffka.RenderTransform = new TranslateTransform(this.Width / 2, this.Height / 2);
-            //transy = Convert.ToInt32(this.Height / 2);
-            //transx = Convert.ToInt32(this.Width / 2);
-
-
-            timer = new System.Windows.Threading.DispatcherTimer();
-            timer.Tick += new EventHandler(dispatcherTimer_Tick);
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 200);
-            timer.Start();
-        }
-
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            if (frame == 4)
+            if (im_index == 15)
             {
-                frame = 0;
+                im_index = 0;
+            }
+            Thread myThread = new Thread(new ParameterizedThreadStart(reveal));
+            myThread.Start(im_index);
+            im_index++;
+
+            if (kl >= 1)
+            {
+                if (prov == 1)
+                {Dos1.IsEnabled = true; }
+            }
+            else
+            { Dos1.IsEnabled = false; }
+
+            if (kl >= 100)
+            {
+                if (prov2 == 1)
+                { Dos2.IsEnabled = true; }
             }
 
-            //if (rand.Next(1, 50) < 3)
+            //if (stel1.IsEnabled == false && stel2.IsEnabled == false && stel3.IsEnabled == false && stel4.IsEnabled == false && stel5.IsEnabled == false && stel6.IsEnabled == false)
             //{
-            //    direction = rand.Next(1, 4);
+            //    if (prov3 == 1)
+            //    { Dos3.IsEnabled = true; }
             //}
 
-            if ((transx <= left_limit))
-            {
-                direction = 2;
-            }
-            if ((transx >= right_limit))
-            {
-                direction = 1;
-            }
-            if ((transy >= bot_limit))
-            {
-                direction = 4;
-            }
-            if ((transy <= top_limit))
-            {
-                direction = 3;
-            }
-
-            if (direction == 1)
-                walk_forvard();
-            if (direction == 2)
-                walk_back();
-            if (direction == 3)
-                walk_left();
-            if (direction == 4)
-                walk_right();
-
-            frame++;
+            //if (stel1.IsEnabled == false && stel2.IsEnabled == false && stel3.IsEnabled == false && stel4.IsEnabled == false && stel5.IsEnabled == false && stel6.IsEnabled == false && P1.IsEnabled == false && P2.IsEnabled == false && P3.IsEnabled == false && P4.IsEnabled == false)
+            //{
+            //    if (prov4 == 1)
+            //    { Dos4.IsEnabled = true; }
+            //}
         }
-
-        private void walk_forvard()
-        {
-            (deffka.Fill as ImageBrush).Viewbox = new Rect(frame * 145, 0, 145, 275);
-            transx -= 2 * speed;
-            transy -= 1 * speed;
-            deffka.RenderTransform = new TranslateTransform(transx, transy);
-        }
-
-        private void walk_back()
-        {
-            (deffka.Fill as ImageBrush).Viewbox = new Rect(frame * 141, 280, 145, 560);
-            transx += 2 * speed;
-            transy += 1 * speed;
-            deffka.RenderTransform = new TranslateTransform(transx, transy);
-        }
-        private void walk_right()
-        {
-            (deffka.Fill as ImageBrush).Viewbox = new Rect(frame * 145 + 570, 0, frame * 150 + 150, 280);
-            transx += 2 * speed;
-            transy -= 1 * speed;
-            deffka.RenderTransform = new TranslateTransform(transx, transy);
-        }
-        private void walk_left()
-        {
-            (deffka.Fill as ImageBrush).Viewbox = new Rect(frame * 145 + 580, 280, frame * 150 + 150, 560);
-            transx -= 2 * speed;
-            transy += 1 * speed;
-            deffka.RenderTransform = new TranslateTransform(transx, transy);
-        }
-
-
-
 
         private void S1_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            sp1.Play();
             menuS.Visibility = Visibility.Visible;
             menuD.Visibility = Visibility.Hidden;
             menuV.Visibility = Visibility.Hidden;
@@ -254,16 +367,19 @@ namespace WpfApp1
         
         private void D1_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            sp1.Play();
             menuS.Visibility = Visibility.Hidden;
             menuD.Visibility = Visibility.Visible;
             menuV.Visibility = Visibility.Hidden;
 
             scroll_S1.Visibility = Visibility.Hidden;
             scroll_D1.Visibility = Visibility.Visible;
+            
         }
 
         private void V1_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            sp1.Play();
             menuS.Visibility = Visibility.Hidden;
             menuD.Visibility = Visibility.Hidden;
             menuV.Visibility = Visibility.Visible;
@@ -271,11 +387,11 @@ namespace WpfApp1
             scroll_S1.Visibility = Visibility.Hidden;
             scroll_D1.Visibility = Visibility.Hidden;
         }
-
-
+        
 
         private void Exit_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            sp1.Play();
             shop.Visibility = Visibility.Hidden;
             stat.Visibility = Visibility.Hidden;
             achivki.Visibility = Visibility.Hidden;
@@ -292,6 +408,7 @@ namespace WpfApp1
 
             scroll_S1.Visibility = Visibility.Hidden;
             scroll_D1.Visibility = Visibility.Hidden;
+            scroll_Dost.Visibility = Visibility.Hidden;
             S1.Visibility = Visibility.Hidden;
             D1.Visibility = Visibility.Hidden;
             V1.Visibility = Visibility.Hidden;
@@ -304,11 +421,22 @@ namespace WpfApp1
             start.Visibility = Visibility.Visible;
             exit1.Visibility = Visibility.Visible;
             main_menu.Visibility = Visibility.Visible;
+
+            nameplayer.Visibility = Visibility.Visible;
+            playe.Visibility = Visibility.Visible;
+
+            mus.Stop();
+            mus.Open(new Uri("C:/Users/Admin/Desktop/Игра/Comics-Click-master/WpfApp1/Resources/RainbowCrash88 - Winter Wrap Up.mp3", UriKind.Relative));
+            mus.Play();
+
             
+
+            rndSob.Stop();
         }
 
         private void Shop_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            sp1.Play();
             menuS.Visibility = Visibility.Visible;
             stats.Visibility = Visibility.Hidden;
             achiv.Visibility = Visibility.Hidden;
@@ -317,6 +445,7 @@ namespace WpfApp1
             menuV.Visibility = Visibility.Hidden;
             scroll_D1.Visibility = Visibility.Hidden;
             scroll_S1.Visibility = Visibility.Visible;
+            scroll_Dost.Visibility = Visibility.Hidden;
             S1.Visibility = Visibility.Visible;
             D1.Visibility = Visibility.Visible;
             V1.Visibility = Visibility.Visible;
@@ -324,11 +453,13 @@ namespace WpfApp1
 
         private void Stat_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            sp1.Play();
             menuS.Visibility = Visibility.Hidden;
             menuD.Visibility = Visibility.Hidden;
             menuV.Visibility = Visibility.Hidden;
             scroll_S1.Visibility = Visibility.Hidden;
             scroll_D1.Visibility = Visibility.Hidden;
+            scroll_Dost.Visibility = Visibility.Hidden;
             S1.Visibility = Visibility.Hidden;
             D1.Visibility = Visibility.Hidden;
             V1.Visibility = Visibility.Hidden;
@@ -340,11 +471,13 @@ namespace WpfApp1
 
         private void Achivki_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            sp1.Play();
             menuS.Visibility = Visibility.Hidden;
             menuD.Visibility = Visibility.Hidden;
             menuV.Visibility = Visibility.Hidden;
             scroll_S1.Visibility = Visibility.Hidden;
             scroll_D1.Visibility = Visibility.Hidden;
+            scroll_Dost.Visibility = Visibility.Visible;
             S1.Visibility = Visibility.Hidden;
             D1.Visibility = Visibility.Hidden;
             V1.Visibility = Visibility.Hidden;
@@ -356,14 +489,17 @@ namespace WpfApp1
 
         private void Top_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            sp1.Play();
             menuS.Visibility = Visibility.Hidden;
             menuD.Visibility = Visibility.Hidden;
             menuV.Visibility = Visibility.Hidden;
             scroll_S1.Visibility = Visibility.Hidden;
             scroll_D1.Visibility = Visibility.Hidden;
+            scroll_Dost.Visibility = Visibility.Hidden;
             S1.Visibility = Visibility.Hidden;
             D1.Visibility = Visibility.Hidden;
             V1.Visibility = Visibility.Hidden;
+
 
             stats.Visibility = Visibility.Hidden;
 
@@ -372,6 +508,7 @@ namespace WpfApp1
 
         private void ClickMenu_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            sp1.Play();
             shop.Visibility = Visibility.Visible;
             stat.Visibility = Visibility.Visible;
             achivki.Visibility = Visibility.Visible;
@@ -391,51 +528,121 @@ namespace WpfApp1
 
         private void exit1_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            // отправка строки
+            byte[] data = Encoding.Unicode.GetBytes(nameplayer.Text + kl);
+            stream.Write(data, 0, data.Length);
+            client.Close();
             this.Close();
         }
 
         private void start_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            ClickMenu.Visibility = Visibility.Visible;
-
-            sh.Visibility = Visibility.Visible;
-            och.Visibility = Visibility.Visible;
-
-            start.Visibility = Visibility.Hidden;
-            exit1.Visibility = Visibility.Hidden;
-
-            main_menu.Visibility = Visibility.Hidden;
-        }
-
-        private void St1_Click(object sender, RoutedEventArgs e)
-        {
-            if (kl >= 20)
+            if(nameplayer.Text == "")
             {
-                stellag1.Visibility = Visibility.Visible;
-                stel1.IsEnabled = false;
-
-                shop.Visibility = Visibility.Hidden;
-                stat.Visibility = Visibility.Hidden;
-                achivki.Visibility = Visibility.Hidden;
-                top.Visibility = Visibility.Hidden;
-                exit.Visibility = Visibility.Hidden;
-
-                menuS.Visibility = Visibility.Hidden;
-                EXMENU.Visibility = Visibility.Hidden;
-
-                scroll_S1.Visibility = Visibility.Hidden;
-                S1.Visibility = Visibility.Hidden;
-                D1.Visibility = Visibility.Hidden;
-                V1.Visibility = Visibility.Hidden;
+                MessageBox.Show("Введите имя");
+            }
+            else
+            {
+                sp1.Play();
+                sp1.MediaEnded += sp1_MediaEnded;
+                mus.MediaEnded += mus_MediaEnded;
 
                 ClickMenu.Visibility = Visibility.Visible;
 
+                sh.Visibility = Visibility.Visible;
+                och.Visibility = Visibility.Visible;
 
-                aup = aup + 1;
-                och.Content = "Очков за клики: " + aup;
+                start.Visibility = Visibility.Hidden;
+                exit1.Visibility = Visibility.Hidden;
 
-                kl = kl - 20;
-                sh.Content = kl + " кл.";
+                nameplayer.Visibility = Visibility.Hidden;
+                playe.Visibility = Visibility.Hidden;
+
+                main_menu.Visibility = Visibility.Hidden;
+
+                rndSob.Start();
+                mus.Open(new Uri("C:/Users/Admin/Desktop/Игра/Comics-Click-master/WpfApp1/Resources/8-Bit Never.mp3", UriKind.Relative));
+                //mus1.Stop();
+                mus.Play();
+            }
+            
+        }
+
+        int k = 1;
+        int k2 = 1;
+        int k3 = 1;
+        int k4 = 1;
+        int k5 = 1;
+        int k6 = 1;
+        int n = 50;
+        int n2 = 100;
+        int n3 = 200;
+        int n4 = 400;
+        int n5 = 800;
+        int n6 = 1200;
+        private void St1_Click(object sender, RoutedEventArgs e)
+        {
+            if (kl >= n)
+            {
+                    sp.Play();
+                if (k == 1)
+                {
+                        stellag1.Visibility = Visibility.Visible;
+                        aup = aup + 1;
+                        och.Content = "Очков за клики: " + aup;
+
+                        kl = kl - n;
+                        sh.Content = kl + " Кл.";
+
+                }
+                if (k == 2)
+                {
+                        stellag1_2.Visibility = Visibility.Visible;
+                        aup = aup + 1;
+                        och.Content = "Очков за клики: " + aup;
+
+                        kl = kl - n;
+                        sh.Content = kl + " Кл.";
+
+                }
+                if (k == 3)
+                {
+                        stellag1_3.Visibility = Visibility.Visible;
+                        aup = aup + 1;
+                        och.Content = "Очков за клики: " + aup;
+
+                        kl = kl - n;
+                        sh.Content = kl + " Кл.";
+
+                }
+                if (k == 4)
+                {
+                        stellag1_4.Visibility = Visibility.Visible;
+                        aup = aup + 1;
+                        och.Content = "Очков за клики: " + aup;
+
+                        kl = kl - n;
+                        sh.Content = kl + " Кл.";
+
+                }
+                if (k == 5)
+                {
+                        stellag1_5.Visibility = Visibility.Visible;
+                        aup = aup + 1;
+                        och.Content = "Очков за клики: " + aup;
+
+                        kl = kl - n;
+                        sh.Content = kl + " Кл.";
+
+                        stel1.Content = "Куплено";
+                        stel1.IsEnabled = false;
+                }
+                else
+                {
+                        k++;
+                        n = n * k ;
+                        stel1.Content = "Стеллаж (+" + k + ")  " + n + " кл. (+1 к клику)";
+                }
             }
             else
             {
@@ -444,33 +651,67 @@ namespace WpfApp1
         }
         private void St2_Click(object sender, RoutedEventArgs e)
         {
-            if (kl >= 150)
+            if (kl >= n2)
             {
-                stellag2.Visibility = Visibility.Visible;
-                stel2.IsEnabled = false;
+                sp.Play();
+                if (k2 == 1)
+                {
+                    stellag2.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
-                shop.Visibility = Visibility.Hidden;
-                stat.Visibility = Visibility.Hidden;
-                achivki.Visibility = Visibility.Hidden;
-                top.Visibility = Visibility.Hidden;
-                exit.Visibility = Visibility.Hidden;
+                    kl = kl - n2;
+                    sh.Content = kl + " Кл.";
 
-                menuS.Visibility = Visibility.Hidden;
-                EXMENU.Visibility = Visibility.Hidden;
+                }
+                if (k2 == 2)
+                {
+                    stellag2_2.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
-                scroll_S1.Visibility = Visibility.Hidden;
-                S1.Visibility = Visibility.Hidden;
-                D1.Visibility = Visibility.Hidden;
-                V1.Visibility = Visibility.Hidden;
+                    kl = kl - n2;
+                    sh.Content = kl + " Кл.";
 
-                ClickMenu.Visibility = Visibility.Visible;
+                }
+                if (k2 == 3)
+                {
+                    stellag2_3.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
+                    kl = kl - n2;
+                    sh.Content = kl + " Кл.";
 
-                aup = aup + 2;
-                och.Content = "Очков за клики: " + aup;
+                }
+                if (k2 == 4)
+                {
+                    stellag2_4.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
-                kl = kl - 150;
-                sh.Content = kl + " кл.";
+                    kl = kl - n2;
+                    sh.Content = kl + " Кл.";
+
+                }
+                if (k2 == 5)
+                {
+                    stellag2_5.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
+
+                    kl = kl - n2;
+                    sh.Content = kl + " Кл.";
+
+                    stel2.Content = "Куплено";
+                    stel2.IsEnabled = false;
+                }
+                else
+                {
+                    k2++;
+                    n2 =n2 * k2;
+                    stel2.Content = "Стеллаж (+" + k2 + ")  " + n2 + " кл. (+1 к клику)";
+                }
             }
             else
             {
@@ -479,33 +720,67 @@ namespace WpfApp1
         }
         private void St3_Click(object sender, RoutedEventArgs e)
         {
-            if (kl >= 400)
+            if (kl >= n3)
             {
-                stellag3.Visibility = Visibility.Visible;
-                stel3.IsEnabled = false;
+                sp.Play();
+                if (k3 == 1)
+                {
+                    stellag3.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
-                shop.Visibility = Visibility.Hidden;
-                stat.Visibility = Visibility.Hidden;
-                achivki.Visibility = Visibility.Hidden;
-                top.Visibility = Visibility.Hidden;
-                exit.Visibility = Visibility.Hidden;
+                    kl = kl - n3;
+                    sh.Content = kl + " Кл.";
 
-                menuS.Visibility = Visibility.Hidden;
-                EXMENU.Visibility = Visibility.Hidden;
+                }
+                if (k3 == 2)
+                {
+                    stellag3_2.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
-                scroll_S1.Visibility = Visibility.Hidden;
-                S1.Visibility = Visibility.Hidden;
-                D1.Visibility = Visibility.Hidden;
-                V1.Visibility = Visibility.Hidden;
+                    kl = kl - n3;
+                    sh.Content = kl + " Кл.";
 
-                ClickMenu.Visibility = Visibility.Visible;
+                }
+                if (k3 == 3)
+                {
+                    stellag3_3.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
+                    kl = kl - n3;
+                    sh.Content = kl + " Кл.";
 
-                aup = aup + 2;
-                och.Content = "Очков за клики: " + aup;
+                }
+                if (k3 == 4)
+                {
+                    stellag3_4.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
-                kl = kl - 400;
-                sh.Content = kl + " кл.";
+                    kl = kl - n3;
+                    sh.Content = kl + " Кл.";
+
+                }
+                if (k3 == 5)
+                {
+                    stellag3_5.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
+
+                    kl = kl - n3;
+                    sh.Content = kl + " Кл.";
+
+                    stel3.Content = "Куплено";
+                    stel3.IsEnabled = false;
+                }
+                else
+                {
+                    k3++;
+                    n3 = n3 * k3;
+                    stel3.Content = "Стеллаж (+" + k3 + ")  " + n3 + " кл. (+1 к клику)";
+                }
             }
             else
             {
@@ -514,33 +789,67 @@ namespace WpfApp1
         }
         private void St4_Click(object sender, RoutedEventArgs e)
         {
-            if (kl >= 80)
+            if (kl >= n4)
             {
-                stellag4.Visibility = Visibility.Visible;
-                stel4.IsEnabled = false;
+                sp.Play();
+                if (k4 == 1)
+                {
+                    stellag4.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
-                shop.Visibility = Visibility.Hidden;
-                stat.Visibility = Visibility.Hidden;
-                achivki.Visibility = Visibility.Hidden;
-                top.Visibility = Visibility.Hidden;
-                exit.Visibility = Visibility.Hidden;
+                    kl = kl - n4;
+                    sh.Content = kl + " Кл.";
 
-                menuS.Visibility = Visibility.Hidden;
-                EXMENU.Visibility = Visibility.Hidden;
+                }
+                if (k4 == 2)
+                {
+                    stellag4_2.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
-                scroll_S1.Visibility = Visibility.Hidden;
-                S1.Visibility = Visibility.Hidden;
-                D1.Visibility = Visibility.Hidden;
-                V1.Visibility = Visibility.Hidden;
+                    kl = kl - n4;
+                    sh.Content = kl + " Кл.";
 
-                ClickMenu.Visibility = Visibility.Visible;
+                }
+                if (k4 == 3)
+                {
+                    stellag4_3.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
+                    kl = kl - n4;
+                    sh.Content = kl + " Кл.";
 
-                aup = aup + 3;
-                och.Content = "Очков за клики: " + aup;
+                }
+                if (k4 == 4)
+                {
+                    stellag4_4.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
-                kl = kl - 800;
-                sh.Content = kl + " кл.";
+                    kl = kl - n4;
+                    sh.Content = kl + " Кл.";
+
+                }
+                if (k4 == 5)
+                {
+                    stellag4_5.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
+
+                    kl = kl - n4;
+                    sh.Content = kl + " Кл.";
+
+                    stel4.Content = "Куплено";
+                    stel4.IsEnabled = false;
+                }
+                else
+                {
+                    k4++;
+                    n4 = n4 * k4;
+                    stel4.Content = "Стеллаж (+" + k4 + ")  " + n4 + " кл. (+1 к клику)";
+                }
             }
             else
             {
@@ -549,33 +858,67 @@ namespace WpfApp1
         }
         private void St5_Click(object sender, RoutedEventArgs e)
         {
-            if (kl >= 1200)
+            if (kl >= n5)
             {
-                stellag5.Visibility = Visibility.Visible;
-                stel5.IsEnabled = false;
+                sp.Play();
+                if (k5 == 1)
+                {
+                    stellag5.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
-                shop.Visibility = Visibility.Hidden;
-                stat.Visibility = Visibility.Hidden;
-                achivki.Visibility = Visibility.Hidden;
-                top.Visibility = Visibility.Hidden;
-                exit.Visibility = Visibility.Hidden;
+                    kl = kl - n5;
+                    sh.Content = kl + " Кл.";
 
-                menuS.Visibility = Visibility.Hidden;
-                EXMENU.Visibility = Visibility.Hidden;
+                }
+                if (k5 == 2)
+                {
+                    stellag5_2.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
-                scroll_S1.Visibility = Visibility.Hidden;
-                S1.Visibility = Visibility.Hidden;
-                D1.Visibility = Visibility.Hidden;
-                V1.Visibility = Visibility.Hidden;
+                    kl = kl - n5;
+                    sh.Content = kl + " Кл.";
 
-                ClickMenu.Visibility = Visibility.Visible;
+                }
+                if (k5 == 3)
+                {
+                    stellag5_3.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
+                    kl = kl - n5;
+                    sh.Content = kl + " Кл.";
 
-                aup = aup + 3;
-                och.Content = "Очков за клики: " + aup;
+                }
+                if (k5 == 4)
+                {
+                    stellag5_4.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
-                kl = kl - 1200;
-                sh.Content = kl + " кл.";
+                    kl = kl - n5;
+                    sh.Content = kl + " Кл.";
+
+                }
+                if (k5 == 5)
+                {
+                    stellag5_5.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
+
+                    kl = kl - n5;
+                    sh.Content = kl + " Кл.";
+
+                    stel5.Content = "Куплено";
+                    stel5.IsEnabled = false;
+                }
+                else
+                {
+                    k5++;
+                    n5 = n5 * k5;
+                    stel5.Content = "Стеллаж (+" + k5 + ")  " + n5 + " кл. (+1 к клику)";
+                }
             }
             else
             {
@@ -584,33 +927,67 @@ namespace WpfApp1
         }
         private void St6_Click(object sender, RoutedEventArgs e)
         {
-            if (kl >= 1500)
+            if (kl >= n6)
             {
-                polka.Visibility = Visibility.Visible;
-                stel6.IsEnabled = false;
+                sp.Play();
+                if (k6 == 1)
+                {
+                    polka.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
-                shop.Visibility = Visibility.Hidden;
-                stat.Visibility = Visibility.Hidden;
-                achivki.Visibility = Visibility.Hidden;
-                top.Visibility = Visibility.Hidden;
-                exit.Visibility = Visibility.Hidden;
+                    kl = kl - n6;
+                    sh.Content = kl + " Кл.";
 
-                menuS.Visibility = Visibility.Hidden;
-                EXMENU.Visibility = Visibility.Hidden;
+                }
+                if (k6 == 2)
+                {
+                    polka_2.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
-                scroll_S1.Visibility = Visibility.Hidden;
-                S1.Visibility = Visibility.Hidden;
-                D1.Visibility = Visibility.Hidden;
-                V1.Visibility = Visibility.Hidden;
+                    kl = kl - n6;
+                    sh.Content = kl + " Кл.";
 
-                ClickMenu.Visibility = Visibility.Visible;
+                }
+                if (k6 == 3)
+                {
+                    polka_3.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
+                    kl = kl - n6;
+                    sh.Content = kl + " Кл.";
 
-                aup = aup + 3;
-                och.Content = "Очков за клики: " + aup;
+                }
+                if (k6 == 4)
+                {
+                    polka_4.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
 
-                kl = kl - 1200;
-                sh.Content = kl + " кл.";
+                    kl = kl - n6;
+                    sh.Content = kl + " Кл.";
+
+                }
+                if (k6 == 5)
+                {
+                    polka_5.Visibility = Visibility.Visible;
+                    aup = aup + 1;
+                    och.Content = "Очков за клики: " + aup;
+
+                    kl = kl - n6;
+                    sh.Content = kl + " Кл.";
+
+                    stel6.Content = "Куплено";
+                    stel6.IsEnabled = false;
+                }
+                else
+                {
+                    k6++;
+                    n6 = n6 * k6;
+                    stel6.Content = "Стеллаж (+" + k6 + ")  " + n6 + " кл. (+1 к клику)";
+                }
             }
             else
             {
@@ -618,77 +995,159 @@ namespace WpfApp1
             }
         }
 
+        int k7 = 1;
+        int k8 = 1;
+        int k9 = 1;
+        int k10 = 1;
+        int p = 80;
+        int p2 = 250;
+        int p3 = 600;
+        int p4 = 1100;
         private void P1_Click(object sender, RoutedEventArgs e)
         {
-            if (kl >= 50)
+            if (kl >= p)
             {
-                stellag1.Visibility = Visibility.Visible;
-                P1.IsEnabled = false;
+                sp.Play();
+                if (k7 == 1)
+                {
+                    plakat1.Visibility = Visibility.Visible;
 
-                shop.Visibility = Visibility.Hidden;
-                stat.Visibility = Visibility.Hidden;
-                achivki.Visibility = Visibility.Hidden;
-                top.Visibility = Visibility.Hidden;
-                exit.Visibility = Visibility.Hidden;
+                    avto = avto + k7;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
 
-                menuD.Visibility = Visibility.Hidden;
-                EXMENU.Visibility = Visibility.Hidden;
-                
-                scroll_D1.Visibility = Visibility.Hidden;
-                S1.Visibility = Visibility.Hidden;
-                D1.Visibility = Visibility.Hidden;
-                V1.Visibility = Visibility.Hidden;
+                    kl = kl - p;
+                    sh.Content = kl + " Кл.";
+                    
+                }
+                if (k7 == 2)
+                {
 
-                ClickMenu.Visibility = Visibility.Visible;
+                    avto = avto + k7;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
 
-                kl = kl - 50;
-                sh.Content = kl + " кл.";
+                    kl = kl - p;
+                    sh.Content = kl + " Кл.";
 
-                avto = avto + 1;
-                avclick.Content = "Авто: " + avto + "Кл/сек";
+                }
+                if (k7 == 3)
+                {
 
-                avtotim.Start();
-                P1.IsEnabled = false;
+                    avto = avto + k7;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
+
+                    kl = kl - p;
+                    sh.Content = kl + " Кл.";
+
+                }
+                if (k7 == 4)
+                {
+
+                    avto = avto + k7;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
+
+                    kl = kl - p;
+                    sh.Content = kl + " Кл.";
+
+                }
+                if (k7 == 5)
+                {
+
+                    avto = avto + k7;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
+
+                    kl = kl - p;
+                    sh.Content = kl + " Кл.";
+
+                    P1.Content = "Куплено";
+                    P1.IsEnabled = false;
+                }
+                else
+                {
+                    k7++;
+                    p = p * 2;
+                    P1.Content = "Плакат (+" + k7 + ")  " + p + " кл. (+"+k7+" к клику)";
+                }
             }
             else
             {
                 MessageBox.Show("Не хватает кликов");
             }
-            
+
         }
         private void P2_Click(object sender, RoutedEventArgs e)
         {
-            if (kl >= 200)
+            if (kl >= p2)
             {
+                sp.Play();
+                if (k8 == 1)
+                {
+                    derevo.Visibility = Visibility.Visible;
 
+                    avto = avto + k8;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
 
-                derevo.Visibility = Visibility.Visible;
-                P2.IsEnabled = false;
+                    kl = kl - p2;
+                    sh.Content = kl + " Кл.";
 
-                shop.Visibility = Visibility.Hidden;
-                stat.Visibility = Visibility.Hidden;
-                achivki.Visibility = Visibility.Hidden;
-                top.Visibility = Visibility.Hidden;
-                exit.Visibility = Visibility.Hidden;
+                }
+                if (k8 == 2)
+                {
 
-                menuD.Visibility = Visibility.Hidden;
-                EXMENU.Visibility = Visibility.Hidden;
+                    avto = avto + k8;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
 
-                scroll_D1.Visibility = Visibility.Hidden;
-                S1.Visibility = Visibility.Hidden;
-                D1.Visibility = Visibility.Hidden;
-                V1.Visibility = Visibility.Hidden;
+                    kl = kl - p2;
+                    sh.Content = kl + " Кл.";
 
-                ClickMenu.Visibility = Visibility.Visible;
+                }
+                if (k8 == 3)
+                {
 
-                kl = kl - 200;
-                sh.Content = kl + " кл.";
+                    avto = avto + k8;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
 
-                avto = avto + 3;
-                avclick.Content = "Авто: " + avto + "Кл/сек";
+                    kl = kl - p2;
+                    sh.Content = kl + " Кл.";
 
-                avtotim.Start();
-                P1.IsEnabled = false;
+                }
+                if (k8 == 4)
+                {
+
+                    avto = avto + k8;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
+
+                    kl = kl - p2;
+                    sh.Content = kl + " Кл.";
+
+                }
+                if (k8 == 5)
+                {
+
+                    avto = avto + k8;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
+
+                    kl = kl - p2;
+                    sh.Content = kl + " Кл.";
+
+                    P2.Content = "Куплено";
+                    P2.IsEnabled = false;
+                }
+                else
+                {
+                    k8++;
+                    p2 = p2 * 2;
+                    P2.Content = "Дерево (+" + k8 + ")  " + p2 + " кл. (+" + k8 + " к клику)";
+                }
             }
             else
             {
@@ -698,37 +1157,73 @@ namespace WpfApp1
         }
         private void P3_Click(object sender, RoutedEventArgs e)
         {
-            if (kl >= 500)
+            if (kl >= p3)
             {
+                sp.Play();
+                if (k9 == 1)
+                {
+                    plakat2.Visibility = Visibility.Visible;
 
+                    avto = avto + k9;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
 
-                stellag1.Visibility = Visibility.Visible;
-                P3.IsEnabled = false;
+                    kl = kl - p3;
+                    sh.Content = kl + " Кл.";
 
-                shop.Visibility = Visibility.Hidden;
-                stat.Visibility = Visibility.Hidden;
-                achivki.Visibility = Visibility.Hidden;
-                top.Visibility = Visibility.Hidden;
-                exit.Visibility = Visibility.Hidden;
+                }
+                if (k9 == 2)
+                {
 
-                menuD.Visibility = Visibility.Hidden;
-                EXMENU.Visibility = Visibility.Hidden;
+                    avto = avto + k9;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
 
-                scroll_D1.Visibility = Visibility.Hidden;
-                S1.Visibility = Visibility.Hidden;
-                D1.Visibility = Visibility.Hidden;
-                V1.Visibility = Visibility.Hidden;
+                    kl = kl - p3;
+                    sh.Content = kl + " Кл.";
 
-                ClickMenu.Visibility = Visibility.Visible;
+                }
+                if (k8 == 3)
+                {
 
-                kl = kl - 500;
-                sh.Content = kl + " кл.";
+                    avto = avto + k9;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
 
-                avto = avto + 5;
-                avclick.Content = "Авто: " + avto + "Кл/сек";
+                    kl = kl - p3;
+                    sh.Content = kl + " Кл.";
 
-                avtotim.Start();
-                P1.IsEnabled = false;
+                }
+                if (k9 == 4)
+                {
+
+                    avto = avto + k9;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
+
+                    kl = kl - p3;
+                    sh.Content = kl + " Кл.";
+
+                }
+                if (k9 == 5)
+                {
+
+                    avto = avto + k9;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
+
+                    kl = kl - p3;
+                    sh.Content = kl + " Кл.";
+
+                    P3.Content = "Куплено";
+                    P3.IsEnabled = false;
+                }
+                else
+                {
+                    k9++;
+                    p3 = p3 * 2;
+                    P3.Content = "Плакат (+" + k9 + ")  " + p3 + " кл. (+" + k9 + " к клику)";
+                }
             }
             else
             {
@@ -738,37 +1233,73 @@ namespace WpfApp1
         }
         private void P4_Click(object sender, RoutedEventArgs e)
         {
-            if (kl >= 700)
+            if (kl >= p4)
             {
+                sp.Play();
+                if (k10 == 1)
+                {
+                    knigi.Visibility = Visibility.Visible;
 
+                    avto = avto + k10;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
 
-                knigi.Visibility = Visibility.Visible;
-                P4.IsEnabled = false;
+                    kl = kl - p4;
+                    sh.Content = kl + " Кл.";
 
-                shop.Visibility = Visibility.Hidden;
-                stat.Visibility = Visibility.Hidden;
-                achivki.Visibility = Visibility.Hidden;
-                top.Visibility = Visibility.Hidden;
-                exit.Visibility = Visibility.Hidden;
+                }
+                if (k10 == 2)
+                {
 
-                menuD.Visibility = Visibility.Hidden;
-                EXMENU.Visibility = Visibility.Hidden;
+                    avto = avto + k10;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
 
-                scroll_D1.Visibility = Visibility.Hidden;
-                S1.Visibility = Visibility.Hidden;
-                D1.Visibility = Visibility.Hidden;
-                V1.Visibility = Visibility.Hidden;
+                    kl = kl - p4;
+                    sh.Content = kl + " Кл.";
 
-                ClickMenu.Visibility = Visibility.Visible;
+                }
+                if (k10 == 3)
+                {
 
-                kl = kl - 700;
-                sh.Content = kl + " кл.";
+                    avto = avto + k10;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
 
-                avto = avto + 6;
-                avclick.Content = "Авто: " + avto + "Кл/сек";
+                    kl = kl - p4;
+                    sh.Content = kl + " Кл.";
 
-                avtotim.Start();
-                P1.IsEnabled = false;
+                }
+                if (k10 == 4)
+                {
+
+                    avto = avto + k10;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
+
+                    kl = kl - p4;
+                    sh.Content = kl + " Кл.";
+
+                }
+                if (k10 == 5)
+                {
+
+                    avto = avto + k10;
+                    avclick.Content = "Авто: " + avto + " Кл/сек";
+                    avtotim.Start();
+
+                    kl = kl - p4;
+                    sh.Content = kl + " Кл.";
+
+                    P4.Content = "Куплено";
+                    P4.IsEnabled = false;
+                }
+                else
+                {
+                    k10++;
+                    p4 = p4 * 2;
+                    P4.Content = "Плакат (+" + k10 + ")  " + p4 + " кл. (+" + k10 + " к клику)";
+                }
             }
             else
             {
@@ -777,6 +1308,60 @@ namespace WpfApp1
 
         }
 
+         
+        private void Dos1_Click(object sender, RoutedEventArgs e)
+        {
+           
+            if (prov == 1)
+            {
+                kl = kl + 10;
+                sh.Content = kl + " Кл.";
+                MessageBox.Show("+10 Кл.");
+                Dos1.IsEnabled = false;
+                prov = 0;
+                Dos1.Content = "Получено";
+            }
+            
+        }
+
        
+
+        private void Dos2_Click(object sender, RoutedEventArgs e)
+        {
+            if (prov2 == 1)
+            {
+                avto = avto + 2;
+                avclick.Content = "Авто: " + avto + "Кл/сек";
+
+                MessageBox.Show("+2 Кл/сек");
+                Dos2.IsEnabled = false;
+                prov2 = 0;
+                Dos2.Content = "Получено";
+                avtotim.Start();
+            }
+
+        }
+        //private void Dos3_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (prov3 == 1)
+        //    {
+        //        prov3 = 0;
+        //        MessageBox.Show("Молодец");
+        //        Dos3.Content = "Получено";
+        //        Dos3.IsEnabled = false;
+        //    }
+        //}
+        //private void Dos4_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (prov4 == 1)
+        //    {
+        //        prov4 = 0;
+        //        aup = aup + 3;
+        //        och.Content = "Очков за клики: " + aup;
+        //        MessageBox.Show("+3 очка за клик");
+        //        Dos4.IsEnabled = false;
+        //        Dos4.Content = "Получено";
+        //    }
+        //}
     }
 }

@@ -58,6 +58,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -88,6 +93,10 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -120,9 +129,6 @@
     <Resource Include="1.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Интерфейс\Фон4.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Мебель\Стеллаж1.png" />
   </ItemGroup>
   <ItemGroup>
@@ -138,10 +144,70 @@
     <Resource Include="Мебель\книги.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="pic\deffka_slide2.gif" />
+    <Resource Include="Интерфейс\Событие.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="pic\deffka_slide2s.gif" />
+    <Resource Include="Resources\Pokupka.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Otkrut.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Мебель\Стеллаж1.2.png" />
+    <Resource Include="Мебель\Стеллаж1.3.png" />
+    <Resource Include="Мебель\Стеллаж1.4.png" />
+    <Resource Include="Мебель\Стеллаж1.5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Мебель\Стеллаж3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Мебель\Стеллаж5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Мебель\Стеллаж4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Мебель\Стеллаж2.2.png" />
+    <Resource Include="Мебель\Стеллаж2.3.png" />
+    <Resource Include="Мебель\Стеллаж2.4.png" />
+    <Resource Include="Мебель\Стеллаж2.5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Мебель\Стеллаж3.2.png" />
+    <Resource Include="Мебель\Стеллаж3.3.png" />
+    <Resource Include="Мебель\Стеллаж3.4.png" />
+    <Resource Include="Мебель\Стеллаж3.5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Мебель\Стеллаж4.2.png" />
+    <Resource Include="Мебель\Стеллаж4.3.png" />
+    <Resource Include="Мебель\Стеллаж4.4.png" />
+    <Resource Include="Мебель\Стеллаж4.5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Мебель\Стеллаж5.2.png" />
+    <Resource Include="Мебель\Стеллаж5.3.png" />
+    <Resource Include="Мебель\Стеллаж5.4.png" />
+    <Resource Include="Мебель\Стеллаж5.5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Плакат1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Плакат2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Интерфейс\Фон4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Мебель\полка2.png" />
+    <Resource Include="Мебель\полка3.png" />
+    <Resource Include="Мебель\полка4.png" />
+    <Resource Include="Мебель\полка5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pic\def_cyc.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

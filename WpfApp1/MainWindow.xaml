@@ -9,6 +9,9 @@
         Title="Comics Click" Height="720" Width="1280" AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize">
 
     <Grid x:Name="grid"  Background="#FFA00606" Height="720" HorizontalAlignment="Center" VerticalAlignment="Center" Width="1280" UseLayoutRounding="False" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.RenderTransform>
             <TransformGroup>
                 <ScaleTransform/>
@@ -19,7 +22,7 @@
         </Grid.RenderTransform>
 
 
-        <StackPanel x:Name="grid1"  HorizontalAlignment="Left" Height="720" Width="1280" Margin="0,0,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
+        <StackPanel x:Name="grid1"  HorizontalAlignment="Left" Height="720" Width="1280" Margin="0,0,0,0" VerticalAlignment="Top">
             <Rectangle x:Name="Fon" Height="720" Width="1280">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="Интерфейс/Фон4.png"/>
@@ -27,12 +30,62 @@
             </Rectangle>
         </StackPanel>
 
+        <Image x:Name="def1" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def2" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def3" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def4" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def5" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def6" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def7" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def8" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def9" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def10" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def11" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def12" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def13" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def14" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        
+        <Image x:Name="def15" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+
         <Image x:Name="stellag1" Margin="362,294,806,242" Source="Мебель/Стеллаж1.png" Stretch="Fill" Visibility="Hidden" Width="112" Height="184"/>
+        <Image x:Name="stellag1_2" Margin="362,294,806,242" Source="Мебель/Стеллаж1.2.png" Stretch="Fill" Visibility="Hidden" Width="112" Height="184"/>
+        <Image x:Name="stellag1_3" Margin="362,294,806,242" Source="Мебель/Стеллаж1.3.png" Stretch="Fill" Visibility="Hidden" Width="112" Height="184"/>
+        <Image x:Name="stellag1_4" Margin="362,294,806,242" Source="Мебель/Стеллаж1.4.png" Stretch="Fill" Visibility="Hidden" Width="112" Height="184"/>
+        <Image x:Name="stellag1_5" Margin="362,294,806,242" Source="Мебель/Стеллаж1.5.png" Stretch="Fill" Visibility="Hidden" Width="112" Height="184"/>
+
         <Image x:Name="stellag2" Margin="599,340,565,194" Source="Мебель/Стеллаж2.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
-        <Image x:Name="stellag3" Margin="530,374,638,162" Source="Мебель/Стеллаж2.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag2_2" Margin="599,340,565,194" Source="Мебель/Стеллаж2.2.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag2_3" Margin="599,340,565,194" Source="Мебель/Стеллаж2.3.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag2_4" Margin="599,340,565,194" Source="Мебель/Стеллаж2.4.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag2_5" Margin="599,340,565,194" Source="Мебель/Стеллаж2.5.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+
+        <Image x:Name="stellag3" Margin="530,374,634,160" Source="Мебель/Стеллаж2.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag3_2" Margin="530,374,634,160" Source="Мебель/Стеллаж3.2.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag3_3" Margin="530,374,634,160" Source="Мебель/Стеллаж3.3.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag3_4" Margin="530,374,634,160" Source="Мебель/Стеллаж3.4.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag3_5" Margin="530,374,634,160" Source="Мебель/Стеллаж3.5.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+
         <Image x:Name="stellag4" Margin="683,382,481,152" Source="Мебель/Стеллаж2.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
-        <Image x:Name="stellag5" Margin="615,416,553,120" Source="Мебель/Стеллаж2.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag4_2" Margin="683,382,481,152" Source="Мебель/Стеллаж4.2.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag4_3" Margin="683,382,481,152" Source="Мебель/Стеллаж4.3.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag4_4" Margin="683,382,481,152" Source="Мебель/Стеллаж4.4.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag4_5" Margin="683,382,481,152" Source="Мебель/Стеллаж4.5.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+
+        <Image x:Name="stellag5" Margin="615,416,549,118" Source="Мебель/Стеллаж2.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag5_2" Margin="615,416,549,118" Source="Мебель/Стеллаж5.2.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag5_3" Margin="615,416,549,118" Source="Мебель/Стеллаж5.3.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag5_4" Margin="615,416,549,118" Source="Мебель/Стеллаж5.4.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+        <Image x:Name="stellag5_5" Margin="615,416,549,118" Source="Мебель/Стеллаж5.5.png" Stretch="Fill" Visibility="Hidden" Width="116" Height="186"/>
+
         <Image x:Name="polka" Margin="490,217,670,427" Source="Мебель/полка.png" Stretch="Fill" Visibility="Hidden" Width="120" Height="76"/>
+        <Image x:Name="polka_2" Margin="490,217,670,427" Source="Мебель/полка2.png" Stretch="Fill" Visibility="Hidden" Width="120" Height="76"/>
+        <Image x:Name="polka_3" Margin="490,217,670,427" Source="Мебель/полка3.png" Stretch="Fill" Visibility="Hidden" Width="120" Height="76"/>
+        <Image x:Name="polka_4" Margin="490,217,670,427" Source="Мебель/полка4.png" Stretch="Fill" Visibility="Hidden" Width="120" Height="76"/>
+        <Image x:Name="polka_5" Margin="490,217,670,427" Source="Мебель/полка5.png" Stretch="Fill" Visibility="Hidden" Width="120" Height="76"/>
+
+
+        <Image x:Name="plakat1" Margin="626,124,560,488" Source="Плакат1.png" Stretch="Fill" Visibility="Hidden"/>
+        <Image x:Name="plakat2" Margin="726,174,456,436" Source="Плакат2.png" Stretch="Fill" Visibility="Hidden"/>
         <Image x:Name="knigi" Margin="520,352,726,340" Source="Мебель/книги.png" Stretch="Fill" Visibility="Hidden" Width="34" Height="28"/>
         <Image x:Name="derevo" Margin="880,392,352,187" Source="Мебель/Дерево.png" Stretch="Fill" Visibility="Hidden" Width="48" Height="141"/>
 
@@ -47,15 +100,22 @@
             <Rectangle.Fill>
                 <ImageBrush ImageSource="Интерфейс/Меню/Кнопка меню.png"/>
             </Rectangle.Fill>
+
         </Rectangle>
 
-        <Border x:Name="EXMENU" BorderBrush="Black" BorderThickness="1"  Width="1280" Height="720" Margin="0,0,0,0" MouseDown="EXMENU_MouseDown" Visibility="Hidden" Cursor="Hand" Grid.ColumnSpan="2">
+        <Rectangle x:Name="sob" HorizontalAlignment="Left" Height="109" Margin="1153,184,0,0" VerticalAlignment="Top" Width="107" MouseDown="sob_MouseDown" Visibility="Visible">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="Интерфейс/Событие.png"/>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Border x:Name="EXMENU" BorderBrush="Black" BorderThickness="1"  Width="1280" Height="720" Margin="0,0,0,0" MouseDown="EXMENU_MouseDown" Visibility="Hidden" Cursor="Hand">
             <Border.Background>
                 <SolidColorBrush Color="Black" Opacity="0.4"/>
             </Border.Background>
         </Border>
 
-        <Label x:Name="sh" Content="0 кл." Margin="232,10,0,0" Height="44" FontFamily="Simplified Arabic Fixed" FontSize="24" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="414" FontWeight="Bold" BorderBrush="Black">
+        <Label x:Name="sh" Content="0 Кл." Margin="232,10,0,0" Height="44" FontFamily="Simplified Arabic Fixed" FontSize="24" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="414" FontWeight="Bold" BorderBrush="Black" Foreground="Black" OpacityMask="White">
             <Label.Background>
                 <SolidColorBrush Color="White" Opacity="0.75"/>
             </Label.Background>
@@ -99,23 +159,35 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="stel1" Margin="20,20,0,0" Width="400" Height="120" Content="Стеллаж   20 кл." HorizontalAlignment="Left" VerticalAlignment="Top" Click="St1_Click" />
-                <Button x:Name="stel2" Margin="440,20,0,0" Width="400"  Height="120" Content="Стеллаж    150 кл." HorizontalAlignment="Left" VerticalAlignment="Top" Click="St2_Click"/>
-                <Button x:Name="stel3" Margin="20,150,0,0" Width="400"  Height="120" Content="Стеллаж    400 кл." HorizontalAlignment="Left" VerticalAlignment="Top" Click="St3_Click"/>
-                <Button x:Name="stel4" Margin="440,150,0,0" Width="400"  Height="120" Content="Стеллаж    800 кл." HorizontalAlignment="Left" VerticalAlignment="Top" Click="St4_Click"/>
-                <Button x:Name="stel5" Margin="20,280,0,0" Width="400"  Height="120" Content="Стеллаж    1200 кл." HorizontalAlignment="Left" VerticalAlignment="Top" Click="St5_Click"/>
-                <Button x:Name="stel6" Margin="440,280,0,0" Width="400"  Height="120" Content="Полка    1500 кл." HorizontalAlignment="Left" VerticalAlignment="Top" Click="St6_Click"/>
+                <Button x:Name="stel1" Margin="20,20,0,0" Width="400" Height="120" Content="Стеллаж   50 кл. (+1 к клику)" HorizontalAlignment="Left" VerticalAlignment="Top" Click="St1_Click" />
+                <Button x:Name="stel2" Margin="440,20,0,0" Width="400"  Height="120" Content="Стеллаж    100 кл. (+2 к клику)" HorizontalAlignment="Left" VerticalAlignment="Top" Click="St2_Click"/>
+                <Button x:Name="stel3" Margin="20,150,0,0" Width="400"  Height="120" Content="Стеллаж    200 кл. (+2 к клику)" HorizontalAlignment="Left" VerticalAlignment="Top" Click="St3_Click"/>
+                <Button x:Name="stel4" Margin="440,150,0,0" Width="400"  Height="120" Content="Стеллаж    400 кл. (+3 к клику)" HorizontalAlignment="Left" VerticalAlignment="Top" Click="St4_Click"/>
+                <Button x:Name="stel5" Margin="20,280,0,0" Width="400"  Height="120" Content="Стеллаж    800 кл. (+3 к клику)" HorizontalAlignment="Left" VerticalAlignment="Top" Click="St5_Click"/>
+                <Button x:Name="stel6" Margin="440,280,0,0" Width="400"  Height="120" Content="Полка    1200 кл. (+4 к клику)" HorizontalAlignment="Left" VerticalAlignment="Top" Click="St6_Click"/>
             </Grid>
         </ScrollViewer>
 
         <ScrollViewer x:Name="scroll_D1" HorizontalAlignment="Left" Height="261" Margin="201,374,0,0" VerticalAlignment="Top" Width="880" Visibility="Hidden">
             <Grid Height="426" Width="865">
-                <Button x:Name="P1" Content="Плакат   50 кл." Margin="10,10,0,0" Width="840" HorizontalAlignment="Left" VerticalAlignment="Top" Height="95" Click="P1_Click"/>
-                <Button x:Name="P2" Content="Дерево   200 кл." Margin="10,110,0,0" Width="840" HorizontalAlignment="Left" VerticalAlignment="Top" Height="95" Click="P2_Click"/>
-                <Button x:Name="P3" Content="Плакат   500 кл." Margin="10,210,0,0" Width="840" HorizontalAlignment="Left" VerticalAlignment="Top" Height="95" Click="P3_Click"/>
-                <Button x:Name="P4" Content="Книги   700 кл." Margin="10,310,0,0" Width="840" HorizontalAlignment="Left" VerticalAlignment="Top" Height="95" Click="P4_Click"/>
+                <Button x:Name="P1" Content="Плакат   80 кл.  (+1 к автоклику)" Margin="10,10,0,0" Width="840" HorizontalAlignment="Left" VerticalAlignment="Top" Height="95" Click="P1_Click"/>
+                <Button x:Name="P2" Content="Дерево   250 кл. (+3 к автоклику)" Margin="10,110,0,0" Width="840" HorizontalAlignment="Left" VerticalAlignment="Top" Height="95" Click="P2_Click"/>
+                <Button x:Name="P3" Content="Плакат   600 кл. (+5 к автоклику)" Margin="10,210,0,0" Width="840" HorizontalAlignment="Left" VerticalAlignment="Top" Height="95" Click="P3_Click"/>
+                <Button x:Name="P4" Content="Книги   1100 кл. (+7 к автоклику)" Margin="10,310,0,0" Width="840" HorizontalAlignment="Left" VerticalAlignment="Top" Height="95" Click="P4_Click"/>
             </Grid>
         </ScrollViewer>
+
+        <ScrollViewer x:Name="scroll_Dost" HorizontalAlignment="Left" Height="330" Margin="201,305,0,0" VerticalAlignment="Top" Width="880" Visibility="Hidden">
+            <Grid Height="426" Width="865">
+                <Button x:Name="Dos1" Content="Получить награду" Margin="750,10,0,0" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Height="95" Click="Dos1_Click" FontFamily="Simplified Arabic Fixed" FontWeight="Bold" FontSize="10" IsEnabled="False"/>
+                <Button x:Name="Dos2" Content="Получить награду" Margin="750,110,0,0" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Height="95" Click="Dos2_Click" FontFamily="Simplified Arabic Fixed" FontSize="10" FontWeight="Bold" IsEnabled="False"/>
+
+                <Label Content="Ваш первый клик" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="95" Width="720" Background="#FF919191" FontSize="24" FontFamily="Simplified Arabic Fixed" FontWeight="Bold" VerticalContentAlignment="Center"/>
+                <Label Content="100 кликов - это ещё мало" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Height="95" Width="720" Background="#FF919191" FontFamily="Simplified Arabic Fixed" FontSize="24" FontWeight="Bold" VerticalContentAlignment="Center"/>
+
+            </Grid>
+        </ScrollViewer>
+
 
         <Border x:Name="S1" BorderThickness="1" HorizontalAlignment="Left" Height="56" Margin="201,305,0,0" VerticalAlignment="Top" Width="294" MouseDown="S1_MouseDown" Visibility="Hidden">
             <Border.BorderBrush>
@@ -172,7 +244,7 @@
             </Border.Background>
         </Border>
 
-        <Image x:Name="main_menu" gif:ImageBehavior.AnimatedSource="1.gif" Visibility="Hidden"/>
+        <Image x:Name="main_menu" gif:ImageBehavior.AnimatedSource="1.gif" Visibility="Visible"/>
 
         <Rectangle x:Name="start" HorizontalAlignment="Left" Height="110" Margin="770,360,0,0" VerticalAlignment="Top" Width="460" MouseDown="start_MouseDown">
             <Rectangle.Fill>
@@ -185,13 +257,12 @@
                 <SolidColorBrush Color="Black" Opacity="0"/>
             </Rectangle.Fill>
         </Rectangle>
-        
-        
-        <Rectangle x:Name="anime" HorizontalAlignment="Left" Height="91"  Margin="812,399,0,0" VerticalAlignment="Top" Width="48" Visibility="Hidden">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="pic/deffka_slide2s.gif" Stretch="None" AlignmentX="Left" AlignmentY="Top" />
-            </Rectangle.Fill>
-        </Rectangle>
+        <TextBox x:Name="nameplayer" HorizontalAlignment="Left" Height="44" Margin="10,59,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="249" FontSize="36" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" BorderBrush="Black"/>
+        <Label x:Name="playe" Content="Player:" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="98" FontWeight="Bold" Foreground="White" FontSize="24"/>
+
+
+
+
 
 
 
