@@ -44,7 +44,7 @@
         <Image x:Name="def12" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
         <Image x:Name="def13" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
         <Image x:Name="def14" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
-        
+
         <Image x:Name="def15" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
 
         <Image x:Name="stellag1" Margin="362,294,806,242" Source="Мебель/Стеллаж1.png" Stretch="Fill" Visibility="Hidden" Width="112" Height="184"/>
@@ -259,6 +259,7 @@
         </Rectangle>
         <TextBox x:Name="nameplayer" HorizontalAlignment="Left" Height="44" Margin="10,59,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="249" FontSize="36" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" BorderBrush="Black"/>
         <Label x:Name="playe" Content="Player:" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="98" FontWeight="Bold" Foreground="White" FontSize="24"/>
+        <ListBox x:Name="recordBox" HorizontalAlignment="Left" Height="214" VerticalAlignment="Top" Width="249" Margin="10,124,0,0"/>
 
 
 

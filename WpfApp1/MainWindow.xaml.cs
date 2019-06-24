@@ -137,8 +137,7 @@ namespace WpfApp1
             {
                 client = new TcpClient(IPstr, port);
                 stream = client.GetStream();
-                Thread myThread1 = new Thread(new ThreadStart(reciever));
-                myThread1.Start();
+                
             }
             catch (Exception ex)
             {
@@ -150,22 +149,27 @@ namespace WpfApp1
         /////////////// server
         public void reciever()
         {
-            //while (true)
-            //{
-            //    byte[] data = new byte[64];
-            //    StringBuilder builder = new StringBuilder();
+            while (true)
+            {
+                byte[] data = new byte[64];
+                StringBuilder builder = new StringBuilder();
 
-            //    int bytes = 0;
-            //    do
-            //    {
-            //        bytes = stream.Read(data, 0, data.Length);
-            //        builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
-            //    }
-            //    while (stream.DataAvailable);
+                int bytes = 0;
+                do
+                {
+                    bytes = stream.Read(data, 0, data.Length);
+                    builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
+                }
+                while (stream.DataAvailable);
 
-            //    string message = builder.ToString();
-            //    //Dispatcher.BeginInvoke(new Action(() => listBox.Items.Add(NAMEstr + ": " + message)));
-            //}
+                string message = builder.ToString();
+                if(message == "end")
+                {
+                    break;
+                }
+
+                Dispatcher.BeginInvoke(new Action(() => recordBox.Items.Add(message)));
+            }
         }
 
         private void rnd_sobutie(object sender, EventArgs e)
@@ -504,6 +508,14 @@ namespace WpfApp1
             stats.Visibility = Visibility.Hidden;
 
             achiv.Visibility = Visibility.Visible;
+
+            ////// отправка запроса списка рекордов
+            recordBox.Items.Clear();
+            byte[] data = Encoding.Unicode.GetBytes("request");
+            stream.Write(data, 0, data.Length);
+
+            Thread myThread1 = new Thread(new ThreadStart(reciever));
+            myThread1.Start();
         }
 
         private void ClickMenu_MouseDown(object sender, MouseButtonEventArgs e)
