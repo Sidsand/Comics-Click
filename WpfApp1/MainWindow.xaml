@@ -21,15 +21,8 @@
             </TransformGroup>
         </Grid.RenderTransform>
 
-
-        <StackPanel x:Name="grid1"  HorizontalAlignment="Left" Height="720" Width="1280" Margin="0,0,0,0" VerticalAlignment="Top">
-            <Rectangle x:Name="Fon" Height="720" Width="1280">
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="Интерфейс/Фон4.png"/>
-                </Rectangle.Fill>
-            </Rectangle>
-        </StackPanel>
-
+        <Image x:Name="Fon1" gif:ImageBehavior.AnimatedSource="Интерфейс/Fon_1.gif" Visibility="Visible"/>
+        
         <Image x:Name="def1" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
         <Image x:Name="def2" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
         <Image x:Name="def3" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
@@ -44,8 +37,22 @@
         <Image x:Name="def12" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
         <Image x:Name="def13" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
         <Image x:Name="def14" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
-
         <Image x:Name="def15" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def16" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def17" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def18" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def19" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def20" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def21" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def22" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def23" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def24" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def25" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def26" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def27" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def28" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def29" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
+        <Image x:Name="def30" gif:ImageBehavior.AnimatedSource="pic/def_cyc.gif" Visibility="Hidden"/>
 
         <Image x:Name="stellag1" Margin="362,294,806,242" Source="Мебель/Стеллаж1.png" Stretch="Fill" Visibility="Hidden" Width="112" Height="184"/>
         <Image x:Name="stellag1_2" Margin="362,294,806,242" Source="Мебель/Стеллаж1.2.png" Stretch="Fill" Visibility="Hidden" Width="112" Height="184"/>
@@ -149,6 +156,7 @@
         <Border x:Name="stats" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="500" Width="900" Margin="190,160,0,0" Visibility="Hidden" Cursor="Arrow">
             <Image Height="470" Width="900" Margin="0,0,0,0" Source="Интерфейс.Статистика.png" Stretch="Fill"/>
         </Border>
+
 
 
         <ScrollViewer x:Name="scroll_S1" FocusVisualStyle="{x:Null}" Margin="201,374,199,85" Visibility="Hidden">
@@ -259,14 +267,17 @@
         </Rectangle>
         <TextBox x:Name="nameplayer" HorizontalAlignment="Left" Height="44" Margin="10,59,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="249" FontSize="36" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" BorderBrush="Black"/>
         <Label x:Name="playe" Content="Player:" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="98" FontWeight="Bold" Foreground="White" FontSize="24"/>
-        <ListBox x:Name="recordBox" HorizontalAlignment="Left" Height="214" VerticalAlignment="Top" Width="249" Margin="10,124,0,0"/>
-
-
-
-
-
-
-
+        <Button x:Name="F1" Content="" HorizontalAlignment="Left" Margin="510,305,0,0" VerticalAlignment="Top" Width="200" Height="200" Click="F1_Click" IsEnabled="False" Visibility="Hidden">
+            <Button.Background>
+                <ImageBrush ImageSource="Фон-1.png"/>
+            </Button.Background>
+        </Button>
+        <Button x:Name="F2" Content="" HorizontalAlignment="Left" Margin="860,305,0,0" VerticalAlignment="Top" Width="200" Height="200" Click="F2_Click" Visibility="Hidden">
+            <Button.Background>
+                <ImageBrush ImageSource="Фон-2.png"/>
+            </Button.Background>
+        </Button>
+        <ListBox x:Name="recordBox" HorizontalAlignment="Left" Height="325" Margin="207,305,0,0" VerticalAlignment="Top" Width="869" Visibility="Hidden"/>
 
     </Grid>
 

@@ -31,9 +31,10 @@ namespace WpfApp1
         Random rnd = new Random();
 
         Rectangle D = new Rectangle();
+
         int avto = 0;
-        double kl = 0;
-        double aup = 1;
+        int kl = 0;
+        int aup = 1;
         int prov = 1;
         int prov2 = 1;
         //int prov3 = 1;
@@ -101,26 +102,21 @@ namespace WpfApp1
 
             SolidColorBrush mySolidColorBrush = new SolidColorBrush();
             mySolidColorBrush.Color = Color.FromArgb(0, 0, 0, 0);
-
+            
             //// =====================================================================================
 
-            Fon.Fill = mySolidColorBrush;
-            ImageBrush ib = new ImageBrush();
-            ib.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Интерфейс/Фон4.png"));
-            Fon.Fill = ib;
+            defks = new Image[30] {
+                def1, def2, def3, def4, def5,
+                def6, def7, def8, def9, def10,
+                def11, def12, def13, def14, def15,
+                def16, def17, def18, def19, def20,
+                def21, def22, def23, def24, def25,
+                def26, def27, def28, def29, def30
+            };
 
-            Fon.Width = 1280;
-            Fon.Height = 720;
-
-
-            //// =====================================================================================
-
-            defks = new Image[15] { def1, def2, def3, def4, def5, def6, def7, def8, def9, def10, def11, def12, def13, def14, def15 };
-
-            sp.Open(new Uri("C:/Users/Admin/Desktop/Игра/Comics-Click-master/WpfApp1/Resources/Pokupka.wav", UriKind.Relative));
-            sp1.Open(new Uri("C:/Users/Admin/Desktop/Игра/Comics-Click-master/WpfApp1/Resources/Otkrut.wav", UriKind.Relative));
-            //mus.Open(new Uri("C:/Users/Admin/Desktop/Игра/Comics-Click-master/WpfApp1/Resources/8-Bit Never.mp3", UriKind.Relative));
-            mus.Open(new Uri("C:/Users/Admin/Desktop/Игра/Comics-Click-master/WpfApp1/Resources/RainbowCrash88 - Winter Wrap Up.mp3", UriKind.Relative));
+            sp.Open(new Uri("C:/Users/Admin/Desktop/Игра 4.0/Comics-Click-master/WpfApp1/Resources/Pokupka.wav", UriKind.Relative));
+            sp1.Open(new Uri("C:/Users/Admin/Desktop/Игра 4.0/Comics-Click-master/WpfApp1/Resources/Otkrut.wav", UriKind.Relative));
+            mus.Open(new Uri("C:/Users/Admin/Desktop/Игра 4.0/Comics-Click-master/WpfApp1/Resources/RainbowCrash88 - Winter Wrap Up.mp3", UriKind.Relative));
 
             mus.Play();
 
@@ -133,42 +129,48 @@ namespace WpfApp1
             IPstr = "127.0.0.1";
             NAMEstr = nameplayer.Text;
 
-            try
-            {
-                client = new TcpClient(IPstr, port);
-                stream = client.GetStream();
-                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
             
+
+
         }
+
         /////////////// server
         public void reciever()
         {
+            Dispatcher.BeginInvoke(new Action(() => recordBox.Items.Add("thread up")));
+
+            byte[] data = Encoding.Unicode.GetBytes("request");
+            stream.Write(data, 0, data.Length);
+
             while (true)
             {
-                byte[] data = new byte[64];
+                data = new byte[64];
                 StringBuilder builder = new StringBuilder();
 
                 int bytes = 0;
-                do
+                try
                 {
-                    bytes = stream.Read(data, 0, data.Length);
-                    builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
-                }
-                while (stream.DataAvailable);
+                    do
+                    {
+                        bytes = stream.Read(data, 0, data.Length);
+                        builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
+                    }
+                    while (stream.DataAvailable);
 
-                string message = builder.ToString();
-                if(message == "end")
+                    string message = builder.ToString();
+                    if (message == "end")
+                    {
+                        break;
+                    }
+                    Dispatcher.BeginInvoke(new Action(() => recordBox.Items.Add(message)));
+                }
+                catch
                 {
-                    break;
-                }
+                    throw new ArgumentException("Connection fail");
 
-                Dispatcher.BeginInvoke(new Action(() => recordBox.Items.Add(message)));
+                }
+                
+                
             }
         }
 
@@ -253,23 +255,23 @@ namespace WpfApp1
             }
         
             rndSob.Start();
-        }
+        }   ///
 
-        private void shecik(object sender, EventArgs e)
+        private void shecik(object sender, EventArgs e) 
         {
-           sh.Content = kl + " Кл.";
-        }
+            if (kl < 0)
+            {
+                sh.Content = 0 + " Кл.";
+                kl = 0;
+            }
+            else
+                sh.Content = kl + " Кл.";
+        } ///
         
-        private void Timer_click(object sender, EventArgs e)
+        private void Timer_click(object sender, EventArgs e) 
         {
-          int p = 0;
-
-          while (p < avto)
-          { 
-          kl = kl + 1;
-          p++;
-          }
-        }
+          kl = kl + avto;
+        } ///
 
         private void EXMENU_MouseDown(object sender, MouseEventArgs e)
         {
@@ -295,7 +297,9 @@ namespace WpfApp1
             S1.Visibility = Visibility.Hidden;
             D1.Visibility = Visibility.Hidden;
             V1.Visibility = Visibility.Hidden;
-
+            F1.Visibility = Visibility.Hidden;
+            F2.Visibility = Visibility.Hidden;
+            recordBox.Visibility = Visibility.Hidden;
 
             ClickMenu.Visibility = Visibility.Visible;
 
@@ -322,7 +326,7 @@ namespace WpfApp1
             kl = kl + aup;
             sh.Content = kl + " Кл.";
 
-            if (im_index == 15)
+            if (im_index == 30)
             {
                 im_index = 0;
             }
@@ -343,19 +347,8 @@ namespace WpfApp1
                 if (prov2 == 1)
                 { Dos2.IsEnabled = true; }
             }
-
-            //if (stel1.IsEnabled == false && stel2.IsEnabled == false && stel3.IsEnabled == false && stel4.IsEnabled == false && stel5.IsEnabled == false && stel6.IsEnabled == false)
-            //{
-            //    if (prov3 == 1)
-            //    { Dos3.IsEnabled = true; }
-            //}
-
-            //if (stel1.IsEnabled == false && stel2.IsEnabled == false && stel3.IsEnabled == false && stel4.IsEnabled == false && stel5.IsEnabled == false && stel6.IsEnabled == false && P1.IsEnabled == false && P2.IsEnabled == false && P3.IsEnabled == false && P4.IsEnabled == false)
-            //{
-            //    if (prov4 == 1)
-            //    { Dos4.IsEnabled = true; }
-            //}
-        }
+            
+        } ///
 
         private void S1_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -416,6 +409,8 @@ namespace WpfApp1
             S1.Visibility = Visibility.Hidden;
             D1.Visibility = Visibility.Hidden;
             V1.Visibility = Visibility.Hidden;
+            F1.Visibility = Visibility.Hidden;
+            F2.Visibility = Visibility.Hidden;
 
             ClickMenu.Visibility = Visibility.Hidden;
 
@@ -428,9 +423,11 @@ namespace WpfApp1
 
             nameplayer.Visibility = Visibility.Visible;
             playe.Visibility = Visibility.Visible;
+            recordBox.Visibility = Visibility.Hidden;
+
 
             mus.Stop();
-            mus.Open(new Uri("C:/Users/Admin/Desktop/Игра/Comics-Click-master/WpfApp1/Resources/RainbowCrash88 - Winter Wrap Up.mp3", UriKind.Relative));
+            mus.Open(new Uri("C:/Users/Admin/Desktop/Игра 4.0/Comics-Click-master/WpfApp1/Resources/RainbowCrash88 - Winter Wrap Up.mp3", UriKind.Relative));
             mus.Play();
 
             
@@ -453,6 +450,9 @@ namespace WpfApp1
             S1.Visibility = Visibility.Visible;
             D1.Visibility = Visibility.Visible;
             V1.Visibility = Visibility.Visible;
+            F1.Visibility = Visibility.Hidden;
+            F2.Visibility = Visibility.Hidden;
+            recordBox.Visibility = Visibility.Hidden;
         }
 
         private void Stat_MouseDown(object sender, MouseButtonEventArgs e)
@@ -467,10 +467,14 @@ namespace WpfApp1
             S1.Visibility = Visibility.Hidden;
             D1.Visibility = Visibility.Hidden;
             V1.Visibility = Visibility.Hidden;
+            recordBox.Visibility = Visibility.Hidden;
 
             stats.Visibility = Visibility.Visible;
 
             achiv.Visibility = Visibility.Hidden;
+
+            F1.Visibility = Visibility.Visible;
+            F2.Visibility = Visibility.Visible;
         }
 
         private void Achivki_MouseDown(object sender, MouseButtonEventArgs e)
@@ -485,9 +489,11 @@ namespace WpfApp1
             S1.Visibility = Visibility.Hidden;
             D1.Visibility = Visibility.Hidden;
             V1.Visibility = Visibility.Hidden;
+            F1.Visibility = Visibility.Hidden;
+            F2.Visibility = Visibility.Hidden;
 
             stats.Visibility = Visibility.Hidden;
-
+            recordBox.Visibility = Visibility.Hidden;
             achiv.Visibility = Visibility.Visible;
         }
 
@@ -503,19 +509,35 @@ namespace WpfApp1
             S1.Visibility = Visibility.Hidden;
             D1.Visibility = Visibility.Hidden;
             V1.Visibility = Visibility.Hidden;
+            F1.Visibility = Visibility.Hidden;
+            F2.Visibility = Visibility.Hidden;
 
+            recordBox.Visibility = Visibility.Visible;
 
             stats.Visibility = Visibility.Hidden;
 
             achiv.Visibility = Visibility.Visible;
 
-            ////// отправка запроса списка рекордов
+            if (stream == null)
+            {
+                try
+                {
+                    client = new TcpClient(IPstr, port);
+                    stream = client.GetStream();
+
+                }
+                catch (Exception ex)
+                {
+                    throw new ArgumentException("Client error");
+                }
+            }
+
             recordBox.Items.Clear();
-            byte[] data = Encoding.Unicode.GetBytes("request");
-            stream.Write(data, 0, data.Length);
 
             Thread myThread1 = new Thread(new ThreadStart(reciever));
+
             myThread1.Start();
+
         }
 
         private void ClickMenu_MouseDown(object sender, MouseButtonEventArgs e)
@@ -540,11 +562,32 @@ namespace WpfApp1
 
         private void exit1_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            //try
+            //{
             // отправка строки
+            if (stream == null)
+            {
+                try
+                {
+                    client = new TcpClient(IPstr, port);
+                    stream = client.GetStream();
+
+                }
+                catch (Exception ex)
+                {
+                    throw new ArgumentException("Client error");
+                }
+            }
+
             byte[] data = Encoding.Unicode.GetBytes(nameplayer.Text + kl);
-            stream.Write(data, 0, data.Length);
-            client.Close();
-            this.Close();
+                stream.Write(data, 0, data.Length);
+
+                stream.Close(); 
+                client.Close();
+
+                this.Close();
+            //}
+            //catch { }
         }
 
         private void start_MouseDown(object sender, MouseButtonEventArgs e)
@@ -1335,9 +1378,6 @@ namespace WpfApp1
             }
             
         }
-
-       
-
         private void Dos2_Click(object sender, RoutedEventArgs e)
         {
             if (prov2 == 1)
@@ -1353,27 +1393,20 @@ namespace WpfApp1
             }
 
         }
-        //private void Dos3_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (prov3 == 1)
-        //    {
-        //        prov3 = 0;
-        //        MessageBox.Show("Молодец");
-        //        Dos3.Content = "Получено";
-        //        Dos3.IsEnabled = false;
-        //    }
-        //}
-        //private void Dos4_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (prov4 == 1)
-        //    {
-        //        prov4 = 0;
-        //        aup = aup + 3;
-        //        och.Content = "Очков за клики: " + aup;
-        //        MessageBox.Show("+3 очка за клик");
-        //        Dos4.IsEnabled = false;
-        //        Dos4.Content = "Получено";
-        //    }
-        //}
+
+        private void F1_Click(object sender, RoutedEventArgs e)
+        {
+            Fon1.Visibility = Visibility.Visible;
+           // Fon2.Visibility = Visibility.Hidden;
+            F1.IsEnabled = false;
+            F2.IsEnabled = true;
+        }
+        private void F2_Click(object sender, RoutedEventArgs e)
+        {
+            Fon1.Visibility = Visibility.Hidden;
+            //Fon2.Visibility = Visibility.Visible;
+            F1.IsEnabled = true;
+            F2.IsEnabled = false;
+        }
     }
 }
